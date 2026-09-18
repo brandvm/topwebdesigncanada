@@ -10,3 +10,5 @@
 @media(max-width:520px){.site-mode{flex-wrap:wrap;justify-content:center;gap:2px;width:max-content}.site-mode #review-tools{border-left:0;flex-basis:100%;justify-content:center;margin:0;padding:0;border-top:1px solid #ffffff25}.site-mode button{min-height:32px;padding-block:7px}.site-mode .rv-comment-filter{min-height:28px}}
 
 .site-mode{flex-wrap:wrap;justify-content:center;width:max-content}.site-mode-group{display:flex}.site-mode #review-tools{flex-wrap:wrap;justify-content:center;gap:4px}.site-mode .rv-section-picker{font:12px Arial,sans-serif;color:#200f09;background:white;max-width:160px;padding:8px;border-radius:4px;min-height:36px}.site-mode .logout{font-size:11px}.site-mode form{margin:0}.site-mode:has(#review-tools:not([hidden])){max-width:calc(100vw - 24px)}.site-mode:has(#review-tools:not([hidden])) #review-tools{max-width:640px}@media(max-width:760px){.site-mode #review-tools{flex-basis:100%;border:0;margin:0;padding:0}}
+
+@media(max-width:760px){.site-mode-group{order:0}.site-mode form{order:1}.site-mode #review-tools{order:2}}

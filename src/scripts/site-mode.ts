@@ -35,10 +35,5 @@ document.addEventListener('site:mode',event=>{
  const mode=(event as CustomEvent<SiteMode>).detail;
  if(mode==='browse'||mode==='review')void switchMode(mode);
 });
-document.addEventListener('keydown',event=>{
- if(event.ctrlKey||event.metaKey||event.altKey||event.repeat||event.target instanceof Element&&event.target.closest('input,textarea,select,[contenteditable="true"]'))return;
- const key=event.key.toLowerCase();
- if(key==='c'||key==='v'){event.preventDefault();void switchMode(key==='c'?'review':'browse');}
-});
 addEventListener('popstate',()=>void switchMode(resolveSiteMode(new URL(location.href),savedMode()),'replace'));
 void switchMode(resolveSiteMode(new URL(location.href),savedMode()),'replace');
