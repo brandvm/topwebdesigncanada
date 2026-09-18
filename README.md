@@ -14,7 +14,7 @@ npm run verify
 
 Prose: `src/content/articles/*.mdx`. Agency data: `src/data/rankings/*.json`. Identity: `src/data/site.json`. Layouts, components, styles, SVG marks and local fonts belong to this repository. No shared theme dependency.
 
-The overview and profiles use the same agency records, preserving the different original table and profile wording. `docs/content-manifest.json` maps the source export to articles. Full source snapshots live in `docs/source/`. Do not invent authors, credentials, dates, or independence claims. Optional metadata accepts author/image and verified publication/update dates. Set `draft: true` to exclude an article from the site. Keep year-free slugs stable.
+The overview and profiles use the same agency records, preserving the different original table and profile wording. `docs/content-manifest.json` maps the source export to articles. Full source snapshots live in `docs/source/`. Do not invent authors, credentials, dates, or independence claims. Optional metadata accepts author/image and verified publication/update dates. Set `draft: true` to exclude an article from the site. Keep year-free slugs stable. When adding a guide, also add its ranking JSON, source snapshot and article/anchor mapping in docs/content-manifest.json; the article template and sitemap use that explicit inventory.
 
 ## Protected staging and reviews
 

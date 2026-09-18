@@ -20,6 +20,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run verify
+      - name: Audit every production page on mobile and desktop
+        run: npm run audit
       - name: Build protected staging
         run: npm run build:staging && node scripts/verify.mjs && npm run test:staging
         env:
@@ -31,7 +33,7 @@ jobs:
           path: |
             dist/
             server/review-manifest.json
-            reports/structure.json
+            reports/*.json
           include-hidden-files: true
   deploy:
     needs: validate

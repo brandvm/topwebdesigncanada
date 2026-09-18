@@ -1,39 +1,39 @@
 {
-  "environment": "production",
+  "environment": "cloudflare-staging",
   "pages": [
     {
       "page": "/404.html",
-      "cssGzipBytes": 3121,
+      "cssGzipBytes": 4032,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 0,
+      "javascriptBytes": 0,
       "profiles": 0
     },
     {
       "page": "/blog/index.html",
-      "cssGzipBytes": 3121,
+      "cssGzipBytes": 4032,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 0,
+      "javascriptBytes": 0,
       "profiles": 0
     },
     {
       "page": "/blog/top-web-design-agencies-canada/index.html",
-      "cssGzipBytes": 3121,
+      "cssGzipBytes": 4032,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 0,
+      "javascriptBytes": 0,
       "profiles": 10
     },
     {
       "page": "/blog/top-web-design-agencies-toronto/index.html",
-      "cssGzipBytes": 3121,
+      "cssGzipBytes": 4032,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 0,
+      "javascriptBytes": 0,
       "profiles": 10
     },
     {
       "page": "/index.html",
-      "cssGzipBytes": 3121,
+      "cssGzipBytes": 4032,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 0,
+      "javascriptBytes": 0,
       "profiles": 0
     }
   ]

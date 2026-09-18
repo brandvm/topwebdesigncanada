@@ -15,7 +15,8 @@ for(const file of files.filter(f=>f.endsWith('.html'))){
  assert(doc.querySelector('title')?.textContent);assert(doc.querySelector('meta[name=description]')?.content);
  assert.equal(doc.querySelector('html')?.lang,'en');
  assert.equal(Boolean(doc.querySelector('meta[name=robots][content*=noindex]')),staging,file+' indexing');
- if(!staging){assert(!doc.querySelector('script[src]'),file+' zero browser JavaScript');assert(!doc.querySelector('#site-mode'));assert(!existsSync('dist/_review'));}
+ if(!staging){assert(!doc.querySelector('script:not([type="application/ld+json"])'),file+' zero browser JavaScript');assert(!doc.querySelector('#site-mode'));assert(!existsSync('dist/_review'));}
+ const anchors=[...doc.querySelectorAll('[data-review-anchor]')].map(e=>e.getAttribute('data-review-anchor'));assert.equal(new Set(anchors).size,anchors.length,file+' unique review anchors');
  const ids=[...doc.querySelectorAll('[id]')].map(e=>e.id);assert.equal(new Set(ids).size,ids.length,file+' unique ids');
  let level=0;for(const h of doc.querySelectorAll('h1,h2,h3,h4,h5,h6')){const n=Number(h.tagName[1]);assert(n<=level+1,file+' heading jump '+h.textContent);level=n}
  const schemas=[...doc.querySelectorAll('script[type="application/ld+json"]')].flatMap(s=>JSON.parse(s.textContent)['@graph']);
@@ -31,7 +32,7 @@ for(const file of files.filter(f=>f.endsWith('.html'))){
  let css=0,fonts=0;for(const link of doc.querySelectorAll('link[rel=stylesheet]')){let p=link.getAttribute('href');if(base)p=p.slice(base.length);const raw=readFileSync(join('dist',p));css+=gzipSync(raw).length;const matches=raw.toString().matchAll(/url\(([^)]+\.woff2)\)/g);for(const match of matches){let font=match[1].replaceAll('"','').replaceAll("'",'');if(base&&font.startsWith(base+'/'))font=font.slice(base.length);fonts+=statSync(join('dist',font)).size}}
  assert(css<=40000,file+' CSS budget');assert(fonts<=150000,file+' font budget');
  const prose=doc.querySelector('[data-source-article]');if(prose){assert.equal(doc.querySelectorAll('.agency-profile').length,10);assert.equal(doc.querySelectorAll('table').length,2);const slug=prose.getAttribute('data-source-article');const source=readFileSync(`src/content/articles/${slug}.mdx`,'utf8');for(const match of source.matchAll(/href="(https?:[^"<>]+)"/g))assert(html.includes(match[1]),file+' missing source link '+match[1]);const expected=manifest.articles.find(a=>a.slug===slug);for(const anchor of expected.anchors)assert(doc.getElementById(anchor.id),file+' missing source heading '+anchor.id)}
- report.push({page:file.replace('dist',''),cssGzipBytes:css,fontBytes:fonts,javascriptBytes:0,profiles:doc.querySelectorAll('.agency-profile').length});
+ report.push({page:file.replace('dist',''),cssGzipBytes:css,fontBytes:fonts,javascriptGzipBytes:staging?files.filter(f=>f.startsWith('dist/_review/')&&f.endsWith('.js')).reduce((n,f)=>n+gzipSync(readFileSync(f)).length,0):0,profiles:doc.querySelectorAll('.agency-profile').length});
 }
 const active=manifest.articles.filter(a=>!/draft: true/.test(readFileSync(`src/content/articles/${a.slug}.mdx`,'utf8')));
 assert.equal(report.length,active.length+3,'home, listing, articles and 404');

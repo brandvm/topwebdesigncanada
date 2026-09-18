@@ -1,0 +1,18 @@
+{
+  "site": "topwebdesigncanada",
+  "url": "https://topwebdesigncanada-staging.hamoun-ce6.workers.dev",
+  "checks": [
+    "Unauthenticated / protected",
+    "Unauthenticated /favicon.svg protected",
+    "Unauthenticated /_review/mode.js protected",
+    "Unauthenticated /build-info.json protected",
+    "Authenticated page / available and noindex",
+    "Authenticated page /blog/ available and noindex",
+    "Authenticated page /blog/top-web-design-agencies-canada/ available and noindex",
+    "Authenticated page /blog/top-web-design-agencies-toronto/ available and noindex",
+    "Comment persists between independent authenticated sessions",
+    "Page and branch isolation enforced",
+    "Resolve succeeds"
+  ],
+  "commit": "bd6f1e881a2f62807d7bb9e66b1d87775dffa380"
+}
