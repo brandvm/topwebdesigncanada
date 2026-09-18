@@ -3,38 +3,31 @@
   "pages": [
     {
       "page": "/404.html",
-      "cssGzipBytes": 4847,
+      "cssGzipBytes": 4232,
       "fontBytes": 61768,
       "javascriptGzipBytes": 15452,
       "profiles": 0
     },
     {
       "page": "/blog/index.html",
-      "cssGzipBytes": 4847,
+      "cssGzipBytes": 4232,
       "fontBytes": 61768,
       "javascriptGzipBytes": 15452,
       "profiles": 0
     },
     {
-      "page": "/blog/top-web-design-agencies-canada/index.html",
-      "cssGzipBytes": 4847,
-      "fontBytes": 61768,
-      "javascriptGzipBytes": 15452,
-      "profiles": 10
-    },
-    {
       "page": "/blog/top-web-design-agencies-toronto/index.html",
-      "cssGzipBytes": 4847,
+      "cssGzipBytes": 4232,
       "fontBytes": 61768,
       "javascriptGzipBytes": 15452,
       "profiles": 10
     },
     {
       "page": "/index.html",
-      "cssGzipBytes": 4847,
+      "cssGzipBytes": 4232,
       "fontBytes": 61768,
       "javascriptGzipBytes": 15452,
-      "profiles": 0
+      "profiles": 10
     }
   ]
 }

@@ -1,40 +1,33 @@
-# Acceptance report — visual revision and design desk
+# Acceptance report — article homepage and agency directory
 
-## Delivered scope
+The main supplied article is now `/`. The other 1 supplied article(s) retain their existing URLs and are linked directly from the navbar. `/blog/` is a secondary comparison index in the footer. This site has 2 complete articles, 20 agency profiles, 20 FAQs and 3 content pages; 404 and design pages are additional. The old primary article URL redirects home and is excluded from the sitemap.
 
-2 supplied articles, 20 agency profiles, 20 FAQs and 4 editorial pages, plus 404. Source integrity and draft exclusion checks remain in their JSON reports. Production domains are untouched.
-
-The redesigned publication uses local Google Fonts, vendored Phosphor SVG icons and original illustrative covers. `/design/` is its protected, noindex style guide with typography, colour, layout diagrams, component examples and attributed reference screenshots. The central reference board is on Chicago at `/design/references/`. These design pages are omitted from production, including their fonts, screenshots and scripts. They are additional staging review pages and are not part of the 23-page editorial inventory.
+Open green-and-white layout, Canada/Toronto navigation and a wide company grid above a generous reading column. Typography is Manrope + DM Sans, both self-hosted modern sans-serif fonts. Company identity tiles link directly to the corresponding profiles. Official-site icon sources and neutral initials fallbacks are recorded in `docs/agency-marks.json`.
 
 ## Measured production Lighthouse results
 
-Three runs per route and device; medians below. Source: `lighthouse.json`. The audit is a local production-build snapshot (`build: local`), not a public PageSpeed run or field performance measurement. The subsequent staging-only design pages and review changes do not change production HTML.
+Three runs per route and device; medians below. These are local production-build measurements, not public PageSpeed Insights or real-user field results. The production snapshot has no review or design-desk resources.
 
 | Route | Device | Performance | Accessibility | Best practices | SEO |
 |---|---|---:|---:|---:|---:|
-| / | mobile | 100 | 100 | 100 | 100 |
+| / | mobile | 99 | 100 | 100 | 100 |
 | / | desktop | 100 | 100 | 100 | 100 |
 | /blog/ | mobile | 100 | 100 | 100 | 100 |
 | /blog/ | desktop | 100 | 100 | 100 | 100 |
-| /blog/top-web-design-agencies-canada/ | mobile | 99 | 100 | 100 | 100 |
-| /blog/top-web-design-agencies-canada/ | desktop | 100 | 100 | 100 | 100 |
 | /blog/top-web-design-agencies-toronto/ | mobile | 99 | 100 | 100 | 100 |
 | /blog/top-web-design-agencies-toronto/ | desktop | 100 | 100 | 100 | 100 |
 
-Production build validation passes compressed asset budgets, links, headings, structured data, indexing and zero browser review code. See `structure-production.json` for per-page asset sizes. The design desk is outside production performance budgets.
+## Validation
 
-## Validation of this revision
+- Astro checks, content tests, production build and structural validation pass. All supplied source blocks and rankings are preserved; see `source-integrity.json`.
+- Staging build, structural checks, authentication/review integration tests and Wrangler deployment dry run pass.
+- `directory-responsive.json` checks every content route at 320, 390, 768, 1024 and 1440px. No page overflow or broken loaded images was observed. Table overflow stays inside its scroll region. Desktop and mobile homepage screenshots were inspected.
+- `design-responsive.json` records the six style guides and central reference board checks at those widths. The board includes 18 attributed references and actual homepage screenshots; filters show eight Mobbin references and restore all eighteen.
+- Representative keyboard checks cover visible skip-link focus and direct navbar navigation. Automated accessibility is 100; a complete screen-reader journey and comprehensive zoom review have not been certified.
+- Production structural checks verify canonical URLs, sitemap, internal links, headings, draft exclusion, JSON-LD, asset budgets and exclusion of review/design resources. Per-page byte counts are in `structure-production.json`.
 
-- `npm run verify`, staging build, staging structure validation and `npm run test:staging` pass.
-- Editorial responsive checks: `redesign-responsive.json`; widths 320, 390, 768, 1024 and 1440px.
-- Design-desk responsive checks: `design-responsive.json`; all seven pages have one H1, no horizontal page overflow and no observed broken images across those five widths. Reference filters return the expected five Mobbin entries and restore all fourteen.
-- Palette contrast ratios are calculated from the listed colours. Ink, accent and secondary text against paper all exceed 4.5:1. This does not certify all interaction states or WCAG conformance.
-- Login requires a name and password. Signed sessions provide names to comments and replies; submitted name overrides are ignored. Worker tests include expired sessions, direct asset/API protection, request isolation, rate limits, same-origin writes and retry identity after reauthentication.
-- Live redesign checks are recorded in `redesign-live.json`. The in-app browser and Safari also displayed the same Chicago thread; Safari posted a reply with its login name and the reply appeared in the first browser.
-- Review cards support compact viewport scrolling and are repositioned when the viewport or review toolbar changes size.
+## Review continuity and deployment
 
-## Remaining checks and prior operational evidence
+Old primary-article URLs redirect to `/` with review query parameters intact. The API accepts the canonical and legacy page as one conversation group, while retaining other page/site/scope isolation. Existing D1 records are not rewritten or deleted. Integration tests cover legacy thread reads, replies, reactions, resolution, missing anchors, expired sessions and direct asset/API protection. Removed page elements keep the explicit location-changed state.
 
-A complete manual screen-reader journey and comprehensive browser zoom review have not been certified. Automated accessibility scores are not full WCAG certification. Public PageSpeed checks and field LCP/INP/CLS require an approved launch and sufficient traffic.
-
-The earlier staging acceptance exercised a protected version preview, missing-anchor notices and a Chicago rollback that preserved D1 comments. This revision does not change database schemas. Credentials stay outside Git, and comments persist independently of code deployments.
+The existing name/password login and comment interface remain available on protected noindex Cloudflare staging. No database migration, credential change or production-domain change is part of this revision. All six repositories retain separate source, assets and databases. Public PageSpeed and field Core Web Vitals remain launch-stage measurements.

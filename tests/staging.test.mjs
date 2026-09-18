@@ -5,7 +5,7 @@ import {Miniflare} from 'miniflare';
 import {build} from 'esbuild';
 const origin='https://staging.test';
 const manifest=JSON.parse(readFileSync('server/review-manifest.json','utf8'));
-const article=Object.keys(manifest.pages).find(p=>p.startsWith('/blog/')&&p!=='/blog/');
+const article='/blog/';const legacy=Object.keys(manifest.aliases)[0];
 const salt='0123456789abcdef0123456789abcdef',password='local-test-password-only';
 const encoder=new TextEncoder();const key=await crypto.subtle.importKey('raw',encoder.encode(password),'PBKDF2',false,['deriveBits']);
 const hash=await crypto.subtle.deriveBits({name:'PBKDF2',salt:Uint8Array.from(salt.match(/../g),s=>parseInt(s,16)),iterations:100000,hash:'SHA-256'},key,256);
@@ -38,7 +38,7 @@ test('authentication, page/branch isolation, shared comments and persistence',as
  const secondCookie=secondResponse.headers.getSetCookie().find(c=>c.startsWith('__Host-review_session=')).split(';')[0];
  const visitor=crypto.randomUUID(),secondVisitor=crypto.randomUUID();
  const api=async(path,method='GET',body,extra={})=>{const r=await fetch('/api/review'+path,{method,headers:{Origin:origin,Cookie:cookie,'X-Review-Visitor':visitor,'X-Review-Page':'/','X-Review-Scope':'main','Content-Type':'application/json',...extra},...(body?{body:JSON.stringify(body)}:{})});return{status:r.status,data:await r.json()}};
- const data={requestId:crypto.randomUUID(),name:'QA',body:'Persistent point comment',anchor:'hero',anchorLabel:'Hero',x:2500,y:2000,width:0,height:0,selectionType:'point',commit:'abc1234',viewportWidth:1440,viewportHeight:900};
+ const data={requestId:crypto.randomUUID(),name:'QA',body:'Persistent point comment',anchor:'article-header',anchorLabel:'Article header',x:2500,y:2000,width:0,height:0,selectionType:'point',commit:'abc1234',viewportWidth:1440,viewportHeight:900};
  const created=await api('/threads','POST',data);assert.equal(created.status,200);const tid=created.data.id;
  assert.equal((await api('/threads','POST',data)).data.id,tid);
  assert.equal((await api('/threads','POST',data,{Cookie:renewedCookie})).data.id,tid,'Saved retries survive reauthentication on the same device');
@@ -62,6 +62,17 @@ test('authentication, page/branch isolation, shared comments and persistence',as
  assert.equal((await api('/threads?status=all','GET',null,{'X-Review-Scope':'pr-9'})).data.threads.length,0);
  await mf.setOptions(options);
  assert.equal((await api('/threads?status=all')).data.threads.length,2);
+ // Moving an article to / preserves old threads and direct links without changing D1 rows.
+ const redirect=await fetch(legacy+'?mode=review&thread='+tid,{headers:{Cookie:cookie},redirect:'manual'});assert.equal(redirect.status,301);assert.equal(redirect.headers.get('location'),'/?mode=review&thread='+tid);
+ await (await mf.getD1Database('DB')).prepare('UPDATE review_threads SET page=? WHERE id=?').bind(legacy,tid).run();
+ assert.equal((await api('/threads/'+tid)).data.thread.page,legacy);
+ assert.equal((await api('/threads?status=all')).data.threads.length,2);
+ assert.equal((await api('/threads/'+tid,'GET',null,{'X-Review-Page':legacy})).status,200);
+ assert.equal((await api(`/messages/${mid}/reactions`,'PUT',{emoji:'👀',active:true})).status,200);
+ assert.equal((await api('/threads/'+tid,'PATCH',{resolved:true})).status,200);
+ assert.equal((await api('/threads?status=resolved')).data.counts.resolved,1);
+ const movedReply=await api(`/threads/${tid}/replies`,'POST',{requestId:crypto.randomUUID(),body:'Reply after the page moved'},{Cookie:secondCookie});assert.equal(movedReply.status,200);
+ assert.equal((await api('/threads/'+tid,'GET',null,{'X-Review-Page':article})).status,404);
  const logout=await fetch('/__logout',{method:'POST',redirect:'manual',headers:{Origin:origin,Cookie:cookie}});assert.equal(logout.status,303);assert.match(logout.headers.get('set-cookie'),/Max-Age=0/);
  for(let i=0;i<10;i++)await login();assert.equal((await login()).status,429);
  }finally{await mf.dispose()}

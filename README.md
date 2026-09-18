@@ -1,6 +1,6 @@
 # Top Web Design Canada
 
-An independent Astro publication for `topwebdesigncanada.ca`. This public repository contains the editorial source; Cloudflare staging is password-protected and noindex. Production domains remain untouched. There is no GitHub Pages deployment.
+An Astro agency directory for `topwebdesigncanada.ca`. This public repository contains the editorial source; Cloudflare staging is password-protected and noindex. Production domains remain untouched. There is no GitHub Pages deployment.
 
 ## Edit locally
 
@@ -53,3 +53,9 @@ Use `npx wrangler deployments list` and `npx wrangler rollback <version-id>` to 
 ## Visual design review
 
 Open `/design/` on protected staging for this publication’s rendered style guide. The [reference board](https://topbrandingagencieschicago-staging.hamoun-ce6.workers.dev/design/references/) contains dated screenshots and explicit design takeaways. Both support page-specific review comments. `design/` is copied only by staging builds and is excluded from production. See `docs/style-guide.md`.
+
+## Directory homepage
+
+The full `top-web-design-agencies-canada` article is the homepage. Other supplied articles retain their existing `/blog/<slug>/` URLs and appear directly in the navbar. `/blog/` remains a secondary comparison index, linked in the footer. The former main-article URL redirects to `/` and is excluded from the sitemap; review queries include its legacy conversation without moving or deleting D1 records. Original anchors, commit context and page isolation remain intact.
+
+All interface typography uses self-hosted modern sans-serif Google Fonts. Company marks are small locally hosted identity images; `docs/agency-marks.json` records their source. Where an official asset is unavailable, a neutral initials tile identifies the agency. These are company navigation tiles, not client endorsements or verification badges.

@@ -1,9 +1,9 @@
 ---
+import CompanyMark from './CompanyMark.astro';
 interface Props{agency:{id:string;name:string;heading:string;cells:string[];facts:string[]}}
 const {agency}=Astro.props;
 ---
 <section class="agency-profile" id={agency.id} data-review-anchor={agency.id} aria-labelledby={`${agency.id}-title`}>
-<div class="agency-heading"><span class="agency-rank" aria-hidden="true">{agency.cells[0].padStart(2,'0')}</span><h3 id={`${agency.id}-title`} aria-label={agency.heading}>{agency.name}</h3></div>
-<div class="agency-facts">{agency.facts.map((fact,i)=><p data-review-anchor={`${agency.id}-fact${i+1}`} set:html={fact}/>)}</div>
-<slot />
+<div class="agency-heading"><CompanyMark id={agency.id} name={agency.name}/><div><div class="agency-title"><span class="agency-rank" aria-hidden="true">{agency.cells[0].padStart(2,'0')}</span><h3 id={`${agency.id}-title`} aria-label={agency.heading}>{agency.name}</h3></div><p class="profile-label">Agency profile</p></div></div>
+<div class="agency-facts">{agency.facts.map((fact,i)=><p data-review-anchor={`${agency.id}-fact${i+1}`} set:html={fact}/>)}</div><slot/>
 </section>

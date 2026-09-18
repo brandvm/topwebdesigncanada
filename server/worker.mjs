@@ -1,4 +1,5 @@
 import {review} from './review-api.mjs';
+import manifest from './review-manifest.json';
 
 const encoder=new TextEncoder();
 const cookieName='__Host-review_session';
@@ -48,6 +49,8 @@ export default {async fetch(request,env){
   if(url.pathname==='/api/session'&&request.method==='GET')return secure(json({name:valid.name}));
   if(url.pathname.startsWith('/api/review/'))return secure(await review(request,env,url,valid));
   if(!['GET','HEAD'].includes(request.method))return secure(json({error:'Method not allowed'},405));
+  const destination=manifest.aliases?.[url.pathname.endsWith('/')?url.pathname:url.pathname+'/'];
+  if(destination)return secure(new Response(null,{status:301,headers:{Location:destination+url.search}}));
   return secure(await env.ASSETS.fetch(request));
  }catch(error){console.error('Staging request failed',error?.message);return secure(json({error:'Staging is temporarily unavailable. Please retry.'},503))}
 }};
