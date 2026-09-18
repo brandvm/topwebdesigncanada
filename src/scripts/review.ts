@@ -13,7 +13,7 @@ const API='/api/review';
 const config=JSON.parse(document.body.dataset.reviewConfig!);
 const prefix=config.site+':'+config.scope+':'+config.page+':';
 const storage={get(key:string){try{return localStorage.getItem(key);}catch{return null;}},set(key:string,value:string){try{localStorage.setItem(key,value);}catch{/* Identity and drafts still work for this visit. */}}};
-const reviewerName:string=document.body.dataset.reviewerName||'';
+let reviewerName:string=document.body.dataset.reviewerName||'';
 function el<K extends keyof HTMLElementTagNameMap>(tag:K,className='',text=''):HTMLElementTagNameMap[K]{const node=document.createElement(tag);if(className)node.className=className;if(text)node.textContent=text;return node;}
 function button(text:string,fn:()=>void,className='rv-button'){const b=el('button',className,text);const iconName:Record<string,keyof typeof icons>={'⋯':'dots-three','✓':'check','×':'x','‹':'caret-left','›':'caret-right'};if(iconName[text])b.innerHTML=icons[iconName[text]];b.type='button';b.addEventListener('click',fn);return b;}
 function time(value:number){return new Intl.DateTimeFormat(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(value);}
@@ -82,7 +82,7 @@ const requestBrowse=()=>document.dispatchEvent(new CustomEvent('site:mode',{deta
 const pickingBanner=el('div','rv-picking-banner');pickingBanner.hidden=true;pickingBanner.append(el('span','','Click to pin · Drag to select an area'),button('Browse instead',requestBrowse,'rv-inline'));root.append(pickingBanner);
 function notify(message='',error=false){noticeText.textContent=message;signIn.hidden=!message.includes('session expired');status.hidden=!message;status.classList.toggle('rv-error',error);retry.hidden=!error;const globalStatus=document.getElementById('site-mode-status')!;if(reviewActive){globalStatus.hidden=!(error&&!panelOpen);globalStatus.textContent=error&&!panelOpen?message+' Select Comment to retry.':'';}}
 function displayName(){return reviewerName;}
-function setPanel(open:boolean){panelOpen=open;panel.hidden=!open;launcher.setAttribute('aria-expanded',String(open));if(open)schedulePins();}
+function setPanel(open:boolean){panelOpen=open;panel.hidden=!open;pickingBanner.hidden=open||!picking;launcher.setAttribute('aria-expanded',String(open));if(open)schedulePins();}
 function prepareCard(thread:boolean){moreMenu.hidden=true;moreButton.setAttribute('aria-expanded','false');copyButton.hidden=!thread;resolveButton.hidden=!thread;updateAuthor();newForm.hidden=thread;replyForm.hidden=!thread;}
 function threadURL(threadId:number|null){const url=new URL(location.href);url.searchParams.set('mode','review');url.searchParams.delete('view');if(threadId)url.searchParams.set('thread',String(threadId));else url.searchParams.delete('thread');return url;}
 function setURL(threadId:number|null){if(reviewActive)history.replaceState(null,'',threadURL(threadId));}
@@ -185,6 +185,7 @@ addEventListener('online',()=>void sync());addEventListener('offline',()=>notify
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelGesture();else void sync();});
 window.setInterval(()=>{if(reviewActive&&!document.hidden&&!gesture)void sync();},15000);
 export function activateReview(){
+ reviewerName=document.body.dataset.reviewerName||'';updateAuthor();
  const initialThread=new URLSearchParams(location.search).get('thread');
  reviewActive=true;root.hidden=false;startPicking();notify('Loading shared comments…');void loadList();
  if(initialThread&&/^\d{1,12}$/.test(initialThread))void openThread(Number(initialThread));
