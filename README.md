@@ -20,7 +20,7 @@ The overview and profiles use the same agency records, preserving the different 
 
 See `docs/staging.md` for the deployed URL. The shared password is delivered privately, outside Git. A secure, HttpOnly, SameSite cookie expires after 12 hours; Log out clears it. Worker-first routing protects pages, direct assets, API calls and version previews. Noindex headers remain independent of login.
 
-Choose **Comment** or append `?mode=review`. Click a point, drag an area, or choose a section and select **Add comment** using the keyboard. Enter a display name, post feedback, reply, react, resolve or reopen, and copy a direct thread link from Comment options. Escape closes the card or returns to Browse. Display names identify feedback; they are not verified accounts.
+Choose **Comment** or append `?mode=review`. Click a point, drag an area, or choose a section and select **Add comment** using the keyboard. Sign in with your name and the shared password, then post feedback, reply, react, resolve or reopen, and copy a direct thread link from Comment options. Escape closes the card or returns to Browse. The name entered at login identifies feedback; they are not verified accounts.
 
 Comments are isolated by page and review scope (main or PR number), with one D1 database for this site. Each thread records its original commit and viewport. Stable `data-review-anchor` IDs survive layout reordering. If an anchor disappears, the thread stays available through comment navigation with an explicit location-changed notice. Drafts stay in this browser's local storage until successfully submitted; do not enter secrets into comments.
 

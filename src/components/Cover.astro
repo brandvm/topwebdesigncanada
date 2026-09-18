@@ -1,0 +1,7 @@
+---
+import {withBase} from '../lib/content';
+interface Props{slug?:string;eager?:boolean;label?:string}
+const {slug='',eager=false,label}=Astro.props;
+const variant=slug.includes('logo')?'logo':slug.includes('corporate')?'corporate':'cover';
+---
+<div class="cover-frame"><img class="cover" src={withBase(`/images/guide-${variant}.svg`)} width="1000" height="700" alt="" loading={eager?'eager':'lazy'} decoding="async"/>{label&&<span class="cover-label">{label}</span>}</div>

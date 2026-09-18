@@ -7,10 +7,10 @@ const clean=(v,min,max,label)=>{if(typeof v!=='string'||v.trim().length<min||v.t
 const id=value=>{if(!/^\d{1,12}$/.test(String(value))||Number(value)<1)fail(400,'Invalid ID.');return Number(value)};
 const uuid=value=>{if(!UUID.test(value||''))fail(400,'Invalid request identity.');return value};
 async function readBody(request){if(!request.headers.get('content-type')?.startsWith('application/json'))fail(415,'JSON required.');const reader=request.body?.getReader();if(!reader)fail(400,'Missing request.');let text='',size=0;const decoder=new TextDecoder();while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>10000){await reader.cancel();fail(413,'Comment is too long.')}text+=decoder.decode(value,{stream:true})}try{return JSON.parse(text+decoder.decode())}catch{fail(400,'Invalid JSON.')}}
-async function route(request,env,url){
+async function route(request,env,url,identity){
  const db=env.DB,page=request.headers.get('x-review-page'),scope=request.headers.get('x-review-scope');
  if(!page||!Object.hasOwn(manifest.pages,page)||scope!==(env.REVIEW_SCOPE||'main'))fail(400,'Invalid review page or branch. Reload the page.');
- const visitor=uuid(request.headers.get('x-review-visitor'));
+ const visitor=uuid(identity.visitor);
  const parts=url.pathname.slice('/api/review/'.length).split('/').filter(Boolean),method=request.method;
  const threadRecord=async threadId=>{const t=await db.prepare('SELECT * FROM review_threads WHERE id=? AND page=? AND scope=?').bind(threadId,page,scope).first();if(!t)fail(404,'Thread not found on this page and branch.');return t};
  async function decorate(messages){if(!messages.length)return[];const rows=await db.prepare(`SELECT message_id,emoji,COUNT(*) AS count,MAX(CASE WHEN visitor_id=? THEN 1 ELSE 0 END) AS mine FROM review_reactions WHERE message_id IN (${messages.map(()=>'?').join(',')}) GROUP BY message_id,emoji`).bind(visitor,...messages.map(m=>m.id)).all();return messages.map(m=>({...m,reactions:emojis.map(emoji=>{const r=rows.results.find(r=>r.message_id===m.id&&r.emoji===emoji);return{emoji,count:r?.count||0,mine:Boolean(r?.mine)}})}))}
@@ -27,7 +27,7 @@ async function route(request,env,url){
  const data=await readBody(request);if(!data||typeof data!=='object')fail(400,'Invalid request.');
  if(!await rateLimit(db,request,'writes',90,60))fail(429,'Please wait a minute before trying again.');
  if(method==='POST'&&parts[0]==='threads'&&parts.length===1){
-  const requestId=uuid(data.requestId),name=clean(data.name,1,50,'display name'),body=clean(data.body,1,3000,'comment');
+  const requestId=uuid(data.requestId),name=identity.name,body=clean(data.body,1,3000,'comment');
   const anchor=clean(data.anchor,1,240,'anchor'),label=clean(data.anchorLabel,1,120,'anchor label');
   if(!manifest.pages[page].includes(anchor))fail(400,'This page section changed. Reload and select its current location; your draft is saved.');
   const commit=clean(data.commit,1,64,'revision');if(!/^[a-zA-Z0-9._-]+$/.test(commit))fail(400,'Invalid revision.');
@@ -43,11 +43,11 @@ async function route(request,env,url){
   ]);return await db.prepare('SELECT id FROM review_threads WHERE request_id=?').bind(requestId).first();
  }
  if(method==='POST'&&parts[0]==='threads'&&parts.length===3&&parts[2]==='replies'){
-  const t=await threadRecord(id(parts[1])),requestId=uuid(data.requestId),name=clean(data.name,1,50,'name'),body=clean(data.body,1,3000,'reply');
+  const t=await threadRecord(id(parts[1])),requestId=uuid(data.requestId),name=identity.name,body=clean(data.body,1,3000,'reply');
   const old=await db.prepare('SELECT * FROM review_messages WHERE request_id=?').bind(requestId).first();if(old){if(old.thread_id!==t.id||old.visitor_id!==visitor||old.name!==name||old.body!==body)fail(409,'Request already used.');return{id:old.id}}
   await db.prepare('INSERT INTO review_messages (request_id,thread_id,visitor_id,name,body,created_at) VALUES (?,?,?,?,?,?) ON CONFLICT(request_id) DO NOTHING').bind(requestId,t.id,visitor,name,body,Date.now()).run();return await db.prepare('SELECT id FROM review_messages WHERE request_id=?').bind(requestId).first();
  }
- if(method==='PATCH'&&parts[0]==='threads'&&parts.length===2){const t=await threadRecord(id(parts[1])),name=clean(data.name,1,50,'name');if(typeof data.resolved!=='boolean')fail(400,'Invalid status.');await db.prepare('UPDATE review_threads SET resolved=?,resolved_by=?,resolved_at=? WHERE id=?').bind(data.resolved?1:0,data.resolved?name:null,data.resolved?Date.now():null,t.id).run();return{ok:true}}
+ if(method==='PATCH'&&parts[0]==='threads'&&parts.length===2){const t=await threadRecord(id(parts[1])),name=identity.name;if(typeof data.resolved!=='boolean')fail(400,'Invalid status.');await db.prepare('UPDATE review_threads SET resolved=?,resolved_by=?,resolved_at=? WHERE id=?').bind(data.resolved?1:0,data.resolved?name:null,data.resolved?Date.now():null,t.id).run();return{ok:true}}
  if(method==='PUT'&&parts[0]==='messages'&&parts.length===3&&parts[2]==='reactions'){
   const mid=id(parts[1]);if(!emojis.includes(data.emoji)||typeof data.active!=='boolean')fail(400,'Invalid reaction.');
   const message=await db.prepare('SELECT m.id FROM review_messages m JOIN review_threads t ON t.id=m.thread_id WHERE m.id=? AND t.page=? AND t.scope=?').bind(mid,page,scope).first();if(!message)fail(404,'Comment not found.');
@@ -55,4 +55,4 @@ async function route(request,env,url){
  }
  fail(404,'Endpoint not found.');
 }
-export async function review(request,env,url){try{return new Response(JSON.stringify(await route(request,env,url)),{headers:{'Content-Type':'application/json; charset=utf-8'}})}catch(e){const status=e.status||503;if(status===503)console.error('Review storage error',e.message);return new Response(JSON.stringify({error:status===503?'Comments are temporarily unavailable. Your draft is saved; please retry.':e.message}),{status,headers:{'Content-Type':'application/json; charset=utf-8',...(status===429?{'Retry-After':'60'}:{})}})}}
+export async function review(request,env,url,identity){try{return new Response(JSON.stringify(await route(request,env,url,identity)),{headers:{'Content-Type':'application/json; charset=utf-8'}})}catch(e){const status=e.status||503;if(status===503)console.error('Review storage error',e.message);return new Response(JSON.stringify({error:status===503?'Comments are temporarily unavailable. Your draft is saved; please retry.':e.message}),{status,headers:{'Content-Type':'application/json; charset=utf-8',...(status===429?{'Retry-After':'60'}:{})}})}}

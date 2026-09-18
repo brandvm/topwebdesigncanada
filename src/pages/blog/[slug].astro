@@ -2,6 +2,7 @@
 import {render,type CollectionEntry} from 'astro:content';
 import Page from '../../layouts/Page.astro';
 import GuideCard from '../../components/GuideCard.astro';
+import Cover from '../../components/Cover.astro';import Icon from '../../components/Icon.astro';
 import {articles,href,withBase} from '../../lib/content';
 import site from '../../data/site.json';
 import manifest from '../../../docs/content-manifest.json';
@@ -19,7 +20,7 @@ const schema=[{'@type':'BlogPosting','@id':canonical+'#article',headline:post.da
 ---
 <Page title={post.data.title} description={post.data.description} schema={schema} pageId={href(post.data.slug)}>
 <nav aria-label="Breadcrumb"><ol class="breadcrumbs"><li><a href={withBase("/")}>Home</a></li><li aria-hidden="true">/</li><li><a href={withBase("/blog/")}>Guides</a></li><li aria-hidden="true">/</li><li aria-current="page">{post.data.topic}</li></ol></nav>
-<article><header class="article-header" data-review-anchor="article-header"><p class="eyebrow">THE GUIDE / {post.data.topic}</p><h1>{post.data.title}</h1><div class="article-meta"><span>2026 edition</span><span>10 agencies compared</span><span>{readingTime} min read</span>{post.data.updatedAt&&<time datetime={post.data.updatedAt.toISOString()}>Updated {post.data.updatedAt.toLocaleDateString('en-CA',{timeZone:'UTC'})}</time>}</div></header>
-<div class="article-grid"><aside class="toc" aria-label="Article contents" data-review-anchor="contents"><h2>In this guide</h2><ol>{toc.map(h=><li><a href={`#${h.id}`}>{h.label.replace(/:.*$/,'')}</a></li>)}</ol><a class="back-top" href="#top">Back to top ↑</a></aside><div class="prose" data-source-article={post.data.slug}><Content/></div></div></article>
+<article><header class="article-header" data-review-anchor="article-header"><div><p class="eyebrow">THE GUIDE / {post.data.topic}</p><h1>{post.data.title}</h1><div class="article-meta"><span>2026 edition</span><span><Icon name="users-three"/>10 agencies compared</span><span>{readingTime} min read</span>{post.data.updatedAt&&<time datetime={post.data.updatedAt.toISOString()}>Updated {post.data.updatedAt.toLocaleDateString('en-CA',{timeZone:'UTC'})}</time>}</div></div><Cover eager slug={post.data.slug}/></header>
+<div class="article-grid"><aside class="toc" aria-label="Article contents" data-review-anchor="contents"><h2><Icon name="list-bullets"/>In this guide</h2><ol>{toc.map(h=><li><a href={`#${h.id}`}>{h.label.replace(/:.*$/,'')}</a></li>)}</ol><a class="back-top" href="#top">Back to top ↑</a></aside><div class="prose" data-source-article={post.data.slug}><Content/></div></div></article>
 {related.length>0&&<section class="section article-end" aria-label="Related guides" data-review-anchor="related-guides"><div class="section-head"><h2>Another perspective.</h2><a class="inline-link" href={withBase("/blog/")}>All guides ↗</a></div><div class="guide-grid">{related.map((p,i)=><GuideCard post={p} index={i}/>)}</div></section>}
 </Page>

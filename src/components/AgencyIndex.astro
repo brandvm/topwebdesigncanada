@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';import {href} from '../lib/content';
+interface Props{slug:string}
+const {slug}=Astro.props;
+const records=import.meta.glob('../data/rankings/*.json',{eager:true,import:'default'}) as Record<string,{headers:string[];agencies:{id:string;name:string;cells:string[]}[]}>;
+const data=records[`../data/rankings/${slug}.json`];
+const focus=data?.headers.findIndex(h=>/focus|special/i.test(h));
+const budget=data?.headers.findIndex(h=>/budget/i.test(h));
+---
+{data&&<ol class="agency-index">{data.agencies.slice(0,3).map((a,i)=><li><span class="index-number">0{i+1}</span><h3><a href={`${href(slug)}#${a.id}`}>{a.name}</a></h3><p>{focus>=0?a.cells[focus]:''}</p><div class="index-facts"><Icon name="stack"/><span>{budget>=0?a.cells[budget]:''} minimum budget</span></div><a class="text-link" href={`${href(slug)}#${a.id}`}>Agency profile <Icon name="arrow-up-right"/></a></li>)}</ol>}

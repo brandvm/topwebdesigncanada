@@ -1,4 +1,5 @@
 import reviewStyles from '../styles/review.css?inline';
+import {icons} from '../assets/icons';
 import {dragBounds,isAreaDrag,contains,normalizeSelection,projectSelection,edgeScrollSpeed,attachedCard,type Point,type Bounds} from './review-geometry';
 const reviewStyle=document.createElement('style');reviewStyle.textContent=reviewStyles;document.head.append(reviewStyle);
 
@@ -12,11 +13,9 @@ const API='/api/review';
 const config=JSON.parse(document.body.dataset.reviewConfig!);
 const prefix=config.site+':'+config.scope+':'+config.page+':';
 const storage={get(key:string){try{return localStorage.getItem(key);}catch{return null;}},set(key:string,value:string){try{localStorage.setItem(key,value);}catch{/* Identity and drafts still work for this visit. */}}};
-let visitor=storage.get(config.site+':visitor');
-if(!visitor||!/^[0-9a-f-]{36}$/i.test(visitor)){visitor=crypto.randomUUID();storage.set(config.site+':visitor',visitor);}
-const visitorId=visitor;
+const reviewerName:string=document.body.dataset.reviewerName||'';
 function el<K extends keyof HTMLElementTagNameMap>(tag:K,className='',text=''):HTMLElementTagNameMap[K]{const node=document.createElement(tag);if(className)node.className=className;if(text)node.textContent=text;return node;}
-function button(text:string,fn:()=>void,className='rv-button'){const b=el('button',className,text);b.type='button';b.addEventListener('click',fn);return b;}
+function button(text:string,fn:()=>void,className='rv-button'){const b=el('button',className,text);const iconName:Record<string,keyof typeof icons>={'⋯':'dots-three','✓':'check','×':'x','‹':'caret-left','›':'caret-right'};if(iconName[text])b.innerHTML=icons[iconName[text]];b.type='button';b.addEventListener('click',fn);return b;}
 function time(value:number){return new Intl.DateTimeFormat(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}).format(value);}
 let reviewActive=false;
 const root=el('div','rv-root');root.id='review-root';root.hidden=true;document.body.append(root);
@@ -47,28 +46,25 @@ const closeButton=button('×',dismissPanel,'rv-icon-button');closeButton.setAttr
 topActions.append(moreButton,resolveButton,closeButton);top.append(cardTitle,topActions);panel.append(top);
 const moreMenu=el('div','rv-menu');moreMenu.hidden=true;
 const copyButton=button('Copy comment link',()=>{moreMenu.hidden=true;void copyLink();},'rv-menu-item');
-moreMenu.append(copyButton,button('Change display name',()=>{moreMenu.hidden=true;identity.hidden=false;nameInput.focus();},'rv-menu-item'));panel.append(moreMenu);
+moreMenu.append(copyButton);panel.append(moreMenu);
 const contextNote=el('p','rv-context');panel.append(contextNote);
 const status=el('div','rv-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.hidden=true;
-const noticeText=el('span');const retry=button('Retry',()=>void sync(),'rv-inline');const signIn=el('a','rv-inline','Sign in again');signIn.href='/__login';signIn.hidden=true;status.append(noticeText,retry,signIn);panel.append(status);
+const noticeText=el('span');const retry=button('Retry',()=>void sync(),'rv-inline');const signIn=el('a','rv-inline','Sign in again');signIn.href='/__login?next='+encodeURIComponent(location.pathname+location.search);signIn.hidden=true;status.append(noticeText,retry,signIn);panel.append(status);
 const composeView=el('div','rv-new-view');composeView.hidden=true;panel.append(composeView);
 const pinLabel=el('p','rv-location');composeView.append(pinLabel);
 const threadView=el('div','rv-thread-view');threadView.hidden=true;panel.append(threadView);
 const messages=el('div','rv-messages');threadView.append(messages);
 const resolvedNote=el('p','rv-resolved-note');resolvedNote.hidden=true;threadView.append(resolvedNote);
-const identity=el('label','rv-identity');identity.append(el('span','','Your display name'));
-const nameInput=el('input');nameInput.type='text';nameInput.setAttribute('autocomplete','nickname');nameInput.maxLength=50;nameInput.placeholder='Enter your name';nameInput.value=storage.get(config.site+':name')||'';identity.append(nameInput);panel.append(identity);
-nameInput.addEventListener('input',()=>{storage.set(config.site+':name',nameInput.value);updateAuthor();});
-function updateAuthor(){const name=nameInput.value.trim();for(const avatar of [newAvatar,replyAvatar]){avatar.textContent=initials(name)||'?';avatar.title=name||'Your comment';}}
+function updateAuthor(){for(const avatar of [newAvatar,replyAvatar]){avatar.textContent=initials(reviewerName)||'?';avatar.title=reviewerName;}}
 function initials(name:string){return name.trim().split(/\s+/).filter(Boolean).map(part=>part[0]).slice(0,2).join('').toUpperCase();}
 const newForm=el('form','rv-compose');const newAvatar=el('span','rv-avatar');newAvatar.setAttribute('aria-hidden','true');
 const newInput=el('textarea');newInput.id='review-new-comment';newInput.setAttribute('aria-label','Your comment');newInput.rows=2;newInput.maxLength=3000;newInput.required=true;newInput.placeholder='Add a comment…';
-const newSubmit=el('button','rv-send','↑');newSubmit.type='submit';newSubmit.setAttribute('aria-label','Post comment');
+const newSubmit=el('button','rv-send','↑');newSubmit.innerHTML=icons['arrow-up'];newSubmit.type='submit';newSubmit.setAttribute('aria-label','Post comment');
 const newField=el('div','rv-input-box');newField.append(newInput,newSubmit);newForm.append(newAvatar,newField);newForm.hidden=true;panel.append(newForm);
 newInput.addEventListener('input',()=>drafts.set('new',newInput.value));newForm.addEventListener('submit',e=>{e.preventDefault();void postThread();});
 const replyForm=el('form','rv-compose');const replyAvatar=el('span','rv-avatar');replyAvatar.setAttribute('aria-hidden','true');
 const replyInput=el('textarea');replyInput.id='review-reply';replyInput.setAttribute('aria-label','Reply to this comment');replyInput.rows=2;replyInput.maxLength=3000;replyInput.required=true;replyInput.placeholder='Reply…';
-const replySubmit=el('button','rv-send','↑');replySubmit.type='submit';replySubmit.setAttribute('aria-label','Post reply');
+const replySubmit=el('button','rv-send','↑');replySubmit.innerHTML=icons['arrow-up'];replySubmit.type='submit';replySubmit.setAttribute('aria-label','Post reply');
 const replyField=el('div','rv-input-box');replyField.append(replyInput,replySubmit);replyForm.append(replyAvatar,replyField);replyForm.hidden=true;panel.append(replyForm);
 replyInput.addEventListener('input',()=>{if(selected)drafts.set('reply:'+selected,replyInput.value);});replyForm.addEventListener('submit',e=>{e.preventDefault();void postReply();});updateAuthor();
 const toolbar=document.getElementById('review-tools')!;
@@ -85,9 +81,9 @@ toolbar.append(sections,sectionComment);
 const requestBrowse=()=>document.dispatchEvent(new CustomEvent('site:mode',{detail:'browse'}));
 const pickingBanner=el('div','rv-picking-banner');pickingBanner.hidden=true;pickingBanner.append(el('span','','Click to pin · Drag to select an area'),button('Browse instead',requestBrowse,'rv-inline'));root.append(pickingBanner);
 function notify(message='',error=false){noticeText.textContent=message;signIn.hidden=!message.includes('session expired');status.hidden=!message;status.classList.toggle('rv-error',error);retry.hidden=!error;const globalStatus=document.getElementById('site-mode-status')!;if(reviewActive){globalStatus.hidden=!(error&&!panelOpen);globalStatus.textContent=error&&!panelOpen?message+' Select Comment to retry.':'';}}
-function displayName(){const name=nameInput.value.trim();if(!name){identity.hidden=false;setPanel(true);nameInput.focus();notify('Enter your name to comment.');return null;}return name;}
+function displayName(){return reviewerName;}
 function setPanel(open:boolean){panelOpen=open;panel.hidden=!open;launcher.setAttribute('aria-expanded',String(open));if(open)schedulePins();}
-function prepareCard(thread:boolean){moreMenu.hidden=true;moreButton.setAttribute('aria-expanded','false');copyButton.hidden=!thread;resolveButton.hidden=!thread;identity.hidden=Boolean(nameInput.value.trim());updateAuthor();newForm.hidden=thread;replyForm.hidden=!thread;}
+function prepareCard(thread:boolean){moreMenu.hidden=true;moreButton.setAttribute('aria-expanded','false');copyButton.hidden=!thread;resolveButton.hidden=!thread;updateAuthor();newForm.hidden=thread;replyForm.hidden=!thread;}
 function threadURL(threadId:number|null){const url=new URL(location.href);url.searchParams.set('mode','review');url.searchParams.delete('view');if(threadId)url.searchParams.set('thread',String(threadId));else url.searchParams.delete('thread');return url;}
 function setURL(threadId:number|null){if(reviewActive)history.replaceState(null,'',threadURL(threadId));}
 function dismissPanel(){
@@ -118,7 +114,7 @@ addEventListener('blur',cancelGesture);
 document.addEventListener('keydown',e=>{if(!reviewActive)return;if(e.key==='Escape'){e.preventDefault();if(!moreMenu.hidden){moreMenu.hidden=true;moreButton.setAttribute('aria-expanded','false');}else if(gesture)cancelGesture();else if(panelOpen||draftAnchor||selected)dismissPanel();else requestBrowse();}});
 async function api(path:string,method='GET',data?:unknown){
  const controller=new AbortController();const timer=window.setTimeout(()=>controller.abort(),15000);
- try{const response=await fetch(API+path,{method,headers:{'X-Review-Page':config.page,'X-Review-Scope':config.scope,'X-Review-Visitor':visitorId,...(data!==undefined?{'Content-Type':'application/json'}:{})},body:data===undefined?undefined:JSON.stringify(data),signal:controller.signal,credentials:'same-origin',cache:'no-store'});const result=await response.json().catch(()=>null);if(!response.ok)throw new Error(result?.error||'Comments are temporarily unavailable. Please try again.');if(!result)throw new Error('Comments are temporarily unavailable. Please try again.');return result;}
+ try{const response=await fetch(API+path,{method,headers:{'X-Review-Page':config.page,'X-Review-Scope':config.scope,...(data!==undefined?{'Content-Type':'application/json'}:{})},body:data===undefined?undefined:JSON.stringify(data),signal:controller.signal,credentials:'same-origin',cache:'no-store'});const result=await response.json().catch(()=>null);if(!response.ok)throw new Error(result?.error||'Comments are temporarily unavailable. Please try again.');if(!result)throw new Error('Comments are temporarily unavailable. Please try again.');return result;}
  catch(e){if(e instanceof Error&&e.name!=='AbortError'&&e.message!=='Failed to fetch')throw e;throw new Error('Could not reach shared comments. Your draft is still here. Please try again.');}
  finally{clearTimeout(timer);}
 }
