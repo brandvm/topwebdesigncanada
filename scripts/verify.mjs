@@ -9,7 +9,7 @@ const info=read('dist/build-info.json'),staging=info.environment==='cloudflare-s
 const base=(process.env.BASE_PATH||'/').replace(/\/$/,'');
 const files=[];function walk(dir){for(const f of readdirSync(dir)){const p=join(dir,f);statSync(p).isDirectory()?walk(p):files.push(p)}}walk('dist');
 const report=[];
-for(const file of files.filter(f=>f.endsWith('.html'))){
+for(const file of files.filter(f=>f.endsWith('.html')&&!f.startsWith('dist/design/'))){
  const html=readFileSync(file,'utf8'),{document:doc}=parseHTML(html);
  assert.equal(doc.querySelectorAll('h1').length,1,file+' single h1');
  assert(doc.querySelector('title')?.textContent);assert(doc.querySelector('meta[name=description]')?.content);
@@ -40,3 +40,19 @@ for(const a of manifest.articles.filter(a=>!active.includes(a)))assert(!existsSy
 mkdirSync('reports',{recursive:true});writeFileSync('reports/structure.json',JSON.stringify({environment:info.environment,pages:report},null,2)+'\n');
 writeFileSync(`reports/structure-${staging?'staging':'production'}.json`,JSON.stringify({environment:info.environment,pages:report},null,2)+'\n');
 console.log(`Verified ${report.length} pages including 404: links, anchors, metadata, headings, indexing, source links and asset budgets.`);
+
+// Design research is staging-only and is validated independently of the editorial page count.
+if(staging){
+ const designPages=files.filter(f=>f.startsWith('dist/design/')&&f.endsWith('.html'));
+ assert.equal(designPages.length,1);
+ for(const file of designPages){
+  const {document:doc}=parseHTML(readFileSync(file,'utf8'));
+  assert.equal(doc.querySelectorAll('h1').length,1);
+  assert(doc.querySelector('meta[name=robots][content*=noindex]'));
+  assert(doc.querySelector('#site-mode'));
+  const ids=[...doc.querySelectorAll('[id]')].map(e=>e.id);assert.equal(new Set(ids).size,ids.length);
+  for(const e of doc.querySelectorAll('img[src],script[src],link[rel=stylesheet]')){const src=e.getAttribute('src')||e.getAttribute('href');assert(src.startsWith('/'));assert(existsSync(join('dist',src)),file+' missing design asset '+src);}
+  for(const a of doc.querySelectorAll('a[href]')){const href=a.getAttribute('href');if(href.startsWith('#'))assert(doc.getElementById(href.slice(1)));else if(href.startsWith('/')){const route=href.split('#')[0];assert(existsSync(join('dist',route,route.endsWith('/')?'index.html':'')),file+' missing design link '+href);}}
+ }
+ console.log('Verified '+designPages.length+' staging design pages: assets, anchors, links, review controls and noindex.');
+}else{assert(!existsSync('dist/design'),'Design research must never ship to production.');}

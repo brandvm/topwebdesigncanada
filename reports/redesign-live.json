@@ -1,0 +1,13 @@
+{
+  "site": "topwebdesigncanada",
+  "url": "https://topwebdesigncanada-staging.hamoun-ce6.workers.dev",
+  "commit": "48a7827546215be3750e6350b6dfb95ce33f3d54",
+  "checks": [
+    "Unauthenticated pages, assets, and build metadata are protected",
+    "4 authenticated pages available with noindex",
+    "Login name is enforced server-side for comments and replies",
+    "Independent sessions read the same persisted thread",
+    "Page and branch isolation remains enforced",
+    "QA thread resolved after verification"
+  ]
+}

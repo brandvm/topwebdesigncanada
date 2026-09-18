@@ -49,3 +49,7 @@ Production output has zero review code or controls, no API routes, and no databa
 ## Rollback
 
 Use `npx wrangler deployments list` and `npx wrangler rollback <version-id>` to restore a prior staging version. D1 comments persist independently. Keep migrations backward-compatible; code rollback does not undo schema changes. Scope, password and session secrets must remain consistent for the intended preview. Review `reports/acceptance.md` for the completed exercise.
+
+## Visual design review
+
+Open `/design/` on protected staging for this publication’s rendered style guide. The [reference board](https://topbrandingagencieschicago-staging.hamoun-ce6.workers.dev/design/references/) contains dated screenshots and explicit design takeaways. Both support page-specific review comments. `design/` is copied only by staging builds and is excluded from production. See `docs/style-guide.md`.

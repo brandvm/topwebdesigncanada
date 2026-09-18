@@ -1,4 +1,4 @@
-import {readFile,writeFile,mkdir,readdir} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,readdir,cp} from 'node:fs/promises';
 import {join} from 'node:path';
 import sharp from 'sharp';
 const site=JSON.parse(await readFile('src/data/site.json','utf8'));
@@ -16,13 +16,15 @@ await sharp('public/social.svg').png().toFile('dist/social.png');
 console.log(`Prepared ${emitted.length} content pages (${staging?'noindex preview':'production'}).`);
 
 if(staging){
+ await cp('design','dist/design',{recursive:true});
+ const designRoutes=['/design/'];
  const {build}=await import('esbuild');
  const {parseHTML}=await import('linkedom');
  await mkdir('dist/_review',{recursive:true});
  await build({entryPoints:['src/scripts/site-mode.ts'],outdir:'dist/_review',entryNames:'mode',chunkNames:'[name]-[hash]',bundle:true,format:'esm',splitting:true,minify:true,target:'es2022',define:{'import.meta.env.BASE_URL':'"/"'},plugins:[{name:'inline-css',setup(b){b.onResolve({filter:/\.css\?inline$/},args=>({path:decodeURIComponent(new URL(args.path.replace('?inline',''),new URL('../src/scripts/',import.meta.url)).pathname),namespace:'text-css'}));b.onLoad({filter:/.*/,namespace:'text-css'},async args=>({contents:await readFile(args.path,'utf8'),loader:'text'}))}}]});
  await writeFile('dist/_review/mode.css',await readFile('src/styles/site-mode.css'));
  const reviewManifest={pages:{}};
- for(const route of [...emitted,'/404.html']){
+ for(const route of [...emitted,'/404.html',...designRoutes]){
   const file=route.endsWith('.html')?'dist'+route:join('dist',route,'index.html');
   const {document:doc}=parseHTML(await readFile(file,'utf8'));
   const config={site:site.repo,page:route,scope:process.env.REVIEW_SCOPE||'main',commit:process.env.BUILD_COMMIT||'local'};

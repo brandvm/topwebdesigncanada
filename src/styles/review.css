@@ -29,3 +29,6 @@
 .rv-messages{min-height:0}.rv-card{overflow:clip}.rv-card:before{display:none}
 
 @media(max-height:600px){.rv-card{display:block;overflow:auto;overscroll-behavior:contain}.rv-card-top{position:sticky;top:0;z-index:1}.rv-thread-view{display:block;overflow:visible}.rv-messages{max-height:none;overflow:visible}.rv-context{padding-block:7px}.rv-compose{padding-block:14px}}
+
+/* At high zoom, keep the thread inside the viewport even before geometry updates. */
+@media(max-height:600px){.rv-card{left:12px!important;right:12px;top:10px!important;width:auto!important;max-width:calc(100vw - 24px);max-height:max(120px,calc(100dvh - 215px))!important}}

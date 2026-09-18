@@ -1,32 +1,40 @@
-# Staging acceptance report
+# Acceptance report — visual revision and design desk
 
-Site: Top Web Design Canada. 2 articles, 4 content pages, 20 agency profiles and 20 FAQs. Additional 404 and authentication pages are not included in the content-page count.
+## Delivered scope
 
-## Automated production checks
+2 supplied articles, 20 agency profiles, 20 FAQs and 4 editorial pages, plus 404. Source integrity and draft exclusion checks remain in their JSON reports. Production domains are untouched.
 
-All content blocks and links from the supplied export are preserved (typographic apostrophe normalization only). Astro checks, structured-content checks, internal links, unique anchors, heading hierarchy, canonical/schema output, production indexing settings and draft exclusion pass. An all-draft build passes and emits no article pages; restoring published content produces the identical HTML used for the Lighthouse audit.
+The redesigned publication uses local Google Fonts, vendored Phosphor SVG icons and original illustrative covers. `/design/` is its protected, noindex style guide with typography, colour, layout diagrams, component examples and attributed reference screenshots. The central reference board is on Chicago at `/design/references/`. These design pages are omitted from production, including their fonts, screenshots and scripts. They are additional staging review pages and are not part of the 23-page editorial inventory.
 
-Production JavaScript: **0 bytes**. Maximum compressed CSS: **3,121 bytes**. Fonts per page: **61,768 bytes**. Review scripts, controls, APIs and database bindings are absent from production output.
+## Measured production Lighthouse results
 
-Three Lighthouse runs per page/device, measured locally with Lighthouse 13.5.0. All agreed thresholds pass. CI repeats these audits before staging deployment. These lab results do not establish real-user Core Web Vitals.
+Three runs per route and device; medians below. Source: `lighthouse.json`. The audit is a local production-build snapshot (`build: local`), not a public PageSpeed run or field performance measurement. The subsequent staging-only design pages and review changes do not change production HTML.
 
-| Page | Mobile P/A/BP/SEO | Desktop P/A/BP/SEO |
-|---|---|---|
-| `/` | 100 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-| `/blog/` | 99 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-| `/blog/top-web-design-agencies-canada/` | 100 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
-| `/blog/top-web-design-agencies-toronto/` | 100 / 100 / 100 / 100 | 100 / 100 / 100 / 100 |
+| Route | Device | Performance | Accessibility | Best practices | SEO |
+|---|---|---:|---:|---:|---:|
+| / | mobile | 100 | 100 | 100 | 100 |
+| / | desktop | 100 | 100 | 100 | 100 |
+| /blog/ | mobile | 100 | 100 | 100 | 100 |
+| /blog/ | desktop | 100 | 100 | 100 | 100 |
+| /blog/top-web-design-agencies-canada/ | mobile | 99 | 100 | 100 | 100 |
+| /blog/top-web-design-agencies-canada/ | desktop | 100 | 100 | 100 | 100 |
+| /blog/top-web-design-agencies-toronto/ | mobile | 99 | 100 | 100 | 100 |
+| /blog/top-web-design-agencies-toronto/ | desktop | 100 | 100 | 100 | 100 |
 
-## Responsive and review checks
+Production build validation passes compressed asset budgets, links, headings, structured data, indexing and zero browser review code. See `structure-production.json` for per-page asset sizes. The design desk is outside production performance budgets.
 
-All content pages checked at 320, 390, 768, 1024 and 1440 pixels; no page-level horizontal overflow. Desktop homepages and narrow article templates visually inspected. Tables scroll independently on narrow screens. Accessibility trees and visible navigation/form labels inspected; the review interface provides keyboard section selection and avoids global single-letter shortcuts.
+## Validation of this revision
 
-Per-site local Worker tests pass for direct page/asset/API authentication, forged and expired sessions, same-origin writes, rate limiting, idempotent posting, replies, reactions, resolve/reopen, page/branch isolation and persistence through Worker reloads. Live tests confirm all content pages behind authentication, noindex headers, and persistence between independently authenticated sessions.
+- `npm run verify`, staging build, staging structure validation and `npm run test:staging` pass.
+- Editorial responsive checks: `redesign-responsive.json`; widths 320, 390, 768, 1024 and 1440px.
+- Design-desk responsive checks: `design-responsive.json`; all seven pages have one H1, no horizontal page overflow and no observed broken images across those five widths. Reference filters return the expected five Mobbin entries and restore all fourteen.
+- Palette contrast ratios are calculated from the listed colours. Ink, accent and secondary text against paper all exceed 4.5:1. This does not certify all interaction states or WCAG conformance.
+- Login requires a name and password. Signed sessions provide names to comments and replies; submitted name overrides are ignored. Worker tests include expired sessions, direct asset/API protection, request isolation, rate limits, same-origin writes and retry identity after reauthentication.
+- Live redesign checks are recorded in `redesign-live.json`. The in-app browser and Safari also displayed the same Chicago thread; Safari posted a reply with its login name and the reply appeared in the first browser.
+- Review cards support compact viewport scrolling and are repositioned when the viewport or review toolbar changes size.
 
-Representative live Chicago UI checks pass for point/rectangle selections, keyboard section selection, replies, direct thread links, original revision/viewport display, draft recovery across reload, and mobile card placement above the toolbar. Protected alias and immutable version URLs were checked. A removed-anchor preview keeps its original thread readable with an explicit location-changed notice. A live Chicago rollback preserves D1 threads and restores the current version.
+## Remaining checks and prior operational evidence
 
-## Remaining human checks / measurement limits
+A complete manual screen-reader journey and comprehensive browser zoom review have not been certified. Automated accessibility scores are not full WCAG certification. Public PageSpeed checks and field LCP/INP/CLS require an approved launch and sufficient traffic.
 
-A complete manual screen-reader journey and separate browser-level zoom review have not been certified. Two independent authenticated sessions passed. Cross-browser UI persistence was also verified in the in-app browser and Google Chrome: Chrome loaded the original thread and reply, then successfully posted a second-browser reply. Screen-reader and separate browser-zoom checks remain on the review checklist. Automated accessibility 100 does not constitute full WCAG certification. Real-user LCP/INP/CLS and public PageSpeed checks require approved launch and sufficient traffic.
-
-No production domain is connected. Passwords and deployment credentials are outside Git. Review feedback remains in this site's D1 database when code is deployed or rolled back.
+The earlier staging acceptance exercised a protected version preview, missing-anchor notices and a Chicago rollback that preserved D1 comments. This revision does not change database schemas. Credentials stay outside Git, and comments persist independently of code deployments.
