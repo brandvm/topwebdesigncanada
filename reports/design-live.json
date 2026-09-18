@@ -1,0 +1,13 @@
+{
+  "site": "topwebdesigncanada",
+  "commit": "c252888944cd0caca3ab2a23c79e0e8ed05769f6",
+  "pages": [
+    "/design/"
+  ],
+  "checks": [
+    "Unauthenticated design pages, CSS and fonts are protected",
+    "Authenticated design pages return 200 and noindex",
+    "Login preserves the style-guide return URL",
+    "Guide API accepts the correct page identifier"
+  ]
+}
