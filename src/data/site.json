@@ -28,5 +28,9 @@
       "slug": "top-web-design-agencies-toronto",
       "label": "Toronto"
     }
-  ]
+  ],
+  "articlePaths": {
+    "top-web-design-agencies-canada": "/",
+    "top-web-design-agencies-toronto": "/toronto/"
+  }
 }

@@ -5,28 +5,28 @@
       "page": "/404.html",
       "cssGzipBytes": 4232,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 15452,
+      "javascriptGzipBytes": 15463,
       "profiles": 0
     },
     {
       "page": "/blog/index.html",
       "cssGzipBytes": 4232,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 15452,
+      "javascriptGzipBytes": 15463,
       "profiles": 0
-    },
-    {
-      "page": "/blog/top-web-design-agencies-toronto/index.html",
-      "cssGzipBytes": 4232,
-      "fontBytes": 61768,
-      "javascriptGzipBytes": 15452,
-      "profiles": 10
     },
     {
       "page": "/index.html",
       "cssGzipBytes": 4232,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 15452,
+      "javascriptGzipBytes": 15463,
+      "profiles": 10
+    },
+    {
+      "page": "/toronto/index.html",
+      "cssGzipBytes": 4232,
+      "fontBytes": 61768,
+      "javascriptGzipBytes": 15463,
       "profiles": 10
     }
   ]

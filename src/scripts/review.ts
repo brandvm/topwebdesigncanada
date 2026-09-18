@@ -11,7 +11,7 @@ type Detail={thread:Thread;root:Message;replies:Message[];next:number|null};
 type Anchor={anchor:string;anchorLabel:string;x:number;y:number;width?:number;height?:number;selectionType?:'point'|'area'};
 const API='/api/review';
 const config=JSON.parse(document.body.dataset.reviewConfig!);
-const prefix=config.site+':'+config.scope+':'+config.page+':';
+const prefix=config.site+':'+config.scope+':'+(config.storagePage||config.page)+':';
 const storage={get(key:string){try{return localStorage.getItem(key);}catch{return null;}},set(key:string,value:string){try{localStorage.setItem(key,value);}catch{/* Identity and drafts still work for this visit. */}}};
 let reviewerName:string=document.body.dataset.reviewerName||'';
 function el<K extends keyof HTMLElementTagNameMap>(tag:K,className='',text=''):HTMLElementTagNameMap[K]{const node=document.createElement(tag);if(className)node.className=className;if(text)node.textContent=text;return node;}

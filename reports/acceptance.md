@@ -1,3 +1,7 @@
+# URL revision
+
+Subpages now use `/toronto/`. Original article URLs redirect to these paths. This routing-only change preserves the previously audited layout, content and assets; the Lighthouse results below describe that design at its earlier paths. Builds, link/canonical/sitemap checks and legacy-comment integration tests are rerun for this revision.
+
 # Acceptance report — article homepage and agency directory
 
 The main supplied article is now `/`. The other 1 supplied article(s) retain their existing URLs and are linked directly from the navbar. `/blog/` is a secondary comparison index in the footer. This site has 2 complete articles, 20 agency profiles, 20 FAQs and 3 content pages; 404 and design pages are additional. The old primary article URL redirects home and is excluded from the sitemap.

@@ -1,11 +1,12 @@
 import {readFile,writeFile,mkdir,readdir,cp} from 'node:fs/promises';
 import {join} from 'node:path';
 import sharp from 'sharp';
+import {articlePath,routeAliases} from '../src/lib/routes.mjs';
 const site=JSON.parse(await readFile('src/data/site.json','utf8'));
 const staging=process.env.DEPLOY_ENV==='staging';
 const manifest=JSON.parse(await readFile('docs/content-manifest.json','utf8'));
-const routes=['/','/blog/',...manifest.articles.filter(a=>a.slug!==site.homeArticle).map(a=>'/blog/'+a.slug+'/')];
-const aliases={['/blog/'+site.homeArticle+'/']:'/'};
+const routes=['/','/blog/',...manifest.articles.filter(a=>a.slug!==site.homeArticle).map(a=>articlePath(a.slug))];
+const aliases=routeAliases;
 await writeFile('dist/_redirects',Object.entries(aliases).map(([from,to])=>from+' '+to+' 301').join('\n')+'\n');
 const emitted=[];
 for(const route of routes){try{await readFile(join('dist',route,'index.html'));emitted.push(route)}catch{}}
@@ -29,7 +30,8 @@ if(staging){
  for(const route of [...emitted,'/404.html',...designRoutes]){
   const file=route.endsWith('.html')?'dist'+route:join('dist',route,'index.html');
   const {document:doc}=parseHTML(await readFile(file,'utf8'));
-  const config={site:site.repo,page:route,scope:process.env.REVIEW_SCOPE||'main',commit:process.env.BUILD_COMMIT||'local'};
+  const storagePage=route==='/'?route:(Object.entries(aliases).find(([,to])=>to===route)?.[0]||route);
+  const config={site:site.repo,page:route,storagePage,scope:process.env.REVIEW_SCOPE||'main',commit:process.env.BUILD_COMMIT||'local'};
   doc.body.setAttribute('data-review-config',JSON.stringify(config));
   reviewManifest.pages[route]=['page',...[...doc.querySelectorAll('[data-review-anchor]')].map(e=>e.getAttribute('data-review-anchor'))];
   doc.head.insertAdjacentHTML('beforeend','<link rel="stylesheet" href="/_review/mode.css">');

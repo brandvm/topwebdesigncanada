@@ -73,6 +73,23 @@ test('authentication, page/branch isolation, shared comments and persistence',as
  assert.equal((await api('/threads?status=resolved')).data.counts.resolved,1);
  const movedReply=await api(`/threads/${tid}/replies`,'POST',{requestId:crypto.randomUUID(),body:'Reply after the page moved'},{Cookie:secondCookie});assert.equal(movedReply.status,200);
  assert.equal((await api('/threads/'+tid,'GET',null,{'X-Review-Page':article})).status,404);
+ // Each shortened subpage keeps its own legacy conversation and cannot read another page's threads.
+ for(const [oldPage,newPage] of Object.entries(manifest.aliases).filter(([,to])=>to!=='/')){
+  const redirected=await fetch(oldPage+'?mode=review&thread=42',{headers:{Cookie:cookie},redirect:'manual'});
+  assert.equal(redirected.status,301);assert.equal(redirected.headers.get('location'),newPage+'?mode=review&thread=42');
+  const headers={'X-Review-Page':newPage};
+  const made=await api('/threads','POST',{...data,requestId:crypto.randomUUID(),body:'Subpage review'},headers);assert.equal(made.status,200);
+  const subId=made.data.id;
+  await (await mf.getD1Database('DB')).prepare('UPDATE review_threads SET page=? WHERE id=?').bind(oldPage,subId).run();
+  const oldThread=await api('/threads/'+subId,'GET',null,headers);assert.equal(oldThread.data.thread.page,oldPage);
+  assert.equal((await api('/threads/'+subId,'GET',null,{'X-Review-Page':oldPage})).status,200);
+  assert.equal((await api('/threads/'+subId)).status,404);
+  for(const otherPage of Object.values(manifest.aliases).filter(to=>to!==newPage))assert.equal((await api('/threads/'+subId,'GET',null,{'X-Review-Page':otherPage})).status,404);
+  assert.equal((await api('/threads?status=all','GET',null,headers)).data.counts.total,1);
+  assert.equal((await api(`/threads/${subId}/replies`,'POST',{requestId:crypto.randomUUID(),body:'Reply at the new URL'},{...headers,Cookie:secondCookie})).status,200);
+  assert.equal((await api(`/messages/${oldThread.data.root.id}/reactions`,'PUT',{emoji:'👍',active:true},headers)).status,200);
+  assert.equal((await api('/threads/'+subId,'PATCH',{resolved:true},headers)).status,200);
+ }
  const logout=await fetch('/__logout',{method:'POST',redirect:'manual',headers:{Origin:origin,Cookie:cookie}});assert.equal(logout.status,303);assert.match(logout.headers.get('set-cookie'),/Max-Age=0/);
  for(let i=0;i<10;i++)await login();assert.equal((await login()).status,429);
  }finally{await mf.dispose()}

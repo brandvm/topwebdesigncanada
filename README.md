@@ -56,6 +56,8 @@ Open `/design/` on protected staging for this publication’s rendered style gui
 
 ## Directory homepage
 
-The full `top-web-design-agencies-canada` article is the homepage. Other supplied articles retain their existing `/blog/<slug>/` URLs and appear directly in the navbar. `/blog/` remains a secondary comparison index, linked in the footer. The former main-article URL redirects to `/` and is excluded from the sitemap; review queries include its legacy conversation without moving or deleting D1 records. Original anchors, commit context and page isolation remain intact.
+The full `top-web-design-agencies-canada` article is the homepage. Additional articles use `/toronto/` and appear directly in the navbar. `src/data/site.json` maps stable content IDs to public paths. `/blog/` remains a secondary comparison index, linked in the footer. Former `/blog/<slug>/` article URLs redirect to their canonical paths and are excluded from the sitemap; review queries include their legacy conversations without moving or deleting D1 records. Original anchors, commit context and page isolation remain intact.
 
 All interface typography uses self-hosted modern sans-serif Google Fonts. Company marks are small locally hosted identity images; `docs/agency-marks.json` records their source. Where an official asset is unavailable, a neutral initials tile identifies the agency. These are company navigation tiles, not client endorsements or verification badges.
+
+Subpage review drafts retain their previous browser storage keys when public paths change. Existing comment records stay in place and are accessible at the new URLs.

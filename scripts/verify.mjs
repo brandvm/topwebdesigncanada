@@ -3,14 +3,15 @@ import {join} from 'node:path';
 import {gzipSync} from 'node:zlib';
 import assert from 'node:assert/strict';
 import {parseHTML} from 'linkedom';
+import {articlePath,routeAliases} from '../src/lib/routes.mjs';
 const read=p=>JSON.parse(readFileSync(p,'utf8'));
 const manifest=read('docs/content-manifest.json');const site=read('src/data/site.json');
-const legacy='dist/blog/'+site.homeArticle+'/index.html';
+const legacyFiles=Object.keys(routeAliases).map(route=>join('dist',route,'index.html'));
 const info=read('dist/build-info.json'),staging=info.environment==='cloudflare-staging';
 const base=(process.env.BASE_PATH||'/').replace(/\/$/,'');
 const files=[];function walk(dir){for(const f of readdirSync(dir)){const p=join(dir,f);statSync(p).isDirectory()?walk(p):files.push(p)}}walk('dist');
 const report=[];
-for(const file of files.filter(f=>f.endsWith('.html')&&!f.startsWith('dist/design/')&&f!==legacy)){
+for(const file of files.filter(f=>f.endsWith('.html')&&!f.startsWith('dist/design/')&&!legacyFiles.includes(f))){
  const html=readFileSync(file,'utf8'),{document:doc}=parseHTML(html);
  assert.equal(doc.querySelectorAll('h1').length,1,file+' single h1');
  assert(doc.querySelector('title')?.textContent);assert(doc.querySelector('meta[name=description]')?.content);
@@ -34,14 +35,16 @@ for(const file of files.filter(f=>f.endsWith('.html')&&!f.startsWith('dist/desig
  }
  let css=0,fonts=0;for(const link of doc.querySelectorAll('link[rel=stylesheet]')){let p=link.getAttribute('href');if(base)p=p.slice(base.length);const raw=readFileSync(join('dist',p));css+=gzipSync(raw).length;assert(!/newsreader|playfair|Georgia|Times New Roman/.test(raw.toString()),'No serif font stylesheet');const matches=raw.toString().matchAll(/url\(([^)]+\.woff2)\)/g);for(const match of matches){let font=match[1].replaceAll('"','').replaceAll("'",'');if(base&&font.startsWith(base+'/'))font=font.slice(base.length);fonts+=statSync(join('dist',font)).size}}
  assert(css<=40000,file+' CSS budget');assert(fonts<=150000,file+' font budget');
- const prose=doc.querySelector('[data-source-article]');if(prose){assert.equal(doc.querySelectorAll('.agency-profile').length,10);assert.equal(doc.querySelectorAll('.company-grid li').length,10);for(const profile of doc.querySelectorAll('.agency-profile'))assert(!/^\d/.test(profile.querySelector('h3').textContent),'Rank is only in its badge');assert.equal(doc.querySelectorAll('table').length,2);const slug=prose.getAttribute('data-source-article');const source=readFileSync(`src/content/articles/${slug}.mdx`,'utf8');for(const match of source.matchAll(/href="(https?:[^"<>]+)"/g))assert(html.includes(match[1]),file+' missing source link '+match[1]);const expected=manifest.articles.find(a=>a.slug===slug);for(const anchor of expected.anchors)assert(doc.getElementById(anchor.id),file+' missing source heading '+anchor.id)}
+ const prose=doc.querySelector('[data-source-article]');if(prose){assert.equal(doc.querySelectorAll('.agency-profile').length,10);assert.equal(doc.querySelectorAll('.company-grid li').length,10);for(const profile of doc.querySelectorAll('.agency-profile'))assert(!/^\d/.test(profile.querySelector('h3').textContent),'Rank is only in its badge');assert.equal(doc.querySelectorAll('table').length,2);const slug=prose.getAttribute('data-source-article');const source=readFileSync(`src/content/articles/${slug}.mdx`,'utf8');for(const match of source.matchAll(/href="(https?:[^"<>]+)"/g))assert(html.includes(match[1]),file+' missing source link '+match[1]);assert.equal(canonical,'https://'+site.domain+articlePath(slug));if(staging){const config=JSON.parse(doc.body.getAttribute('data-review-config'));assert.equal(config.page,articlePath(slug));assert.equal(config.storagePage,slug===site.homeArticle?'/':'/blog/'+slug+'/');}const expected=manifest.articles.find(a=>a.slug===slug);for(const anchor of expected.anchors)assert(doc.getElementById(anchor.id),file+' missing source heading '+anchor.id)}
  report.push({page:file.replace('dist',''),cssGzipBytes:css,fontBytes:fonts,javascriptGzipBytes:staging?files.filter(f=>f.startsWith('dist/_review/')&&f.endsWith('.js')).reduce((n,f)=>n+gzipSync(readFileSync(f)).length,0):0,profiles:doc.querySelectorAll('.agency-profile').length});
 }
 const active=manifest.articles.filter(a=>!/draft: true/.test(readFileSync(`src/content/articles/${a.slug}.mdx`,'utf8')));
 assert.equal(report.length,active.filter(a=>a.slug!==site.homeArticle).length+3,'home article, listing, additional articles and 404');
-for(const a of manifest.articles.filter(a=>!active.includes(a))){if(a.slug!==site.homeArticle)assert(!existsSync('dist/blog/'+a.slug+'/index.html'),'draft must not be emitted');else assert(!readFileSync('dist/index.html','utf8').includes('data-source-article'),'draft homepage article must not be emitted');}
-assert(existsSync(legacy),'Old article URL has a static redirect');
-assert(readFileSync(legacy,'utf8').includes('http-equiv=\"refresh\"'),'Old URL redirects rather than duplicating the article');
+for(const a of manifest.articles.filter(a=>!active.includes(a))){if(a.slug!==site.homeArticle)assert(!existsSync(join('dist',articlePath(a.slug),'index.html')),'draft must not be emitted');else assert(!readFileSync('dist/index.html','utf8').includes('data-source-article'),'draft homepage article must not be emitted');}
+for(const legacy of legacyFiles){assert(existsSync(legacy),'Old article URL has a static redirect');assert(readFileSync(legacy,'utf8').includes('http-equiv=\"refresh\"'),'Old URL redirects rather than duplicating the article');}
+const sitemap=readFileSync('dist/sitemap.xml','utf8');
+for(const a of active){assert(sitemap.includes('https://'+site.domain+articlePath(a.slug)+'</loc>'),'Canonical article route is in the sitemap');}
+for(const from of Object.keys(routeAliases))assert(!sitemap.includes('https://'+site.domain+from+'</loc>'),'Redirect excluded from sitemap');
 mkdirSync('reports',{recursive:true});writeFileSync('reports/structure.json',JSON.stringify({environment:info.environment,pages:report},null,2)+'\n');
 writeFileSync(`reports/structure-${staging?'staging':'production'}.json`,JSON.stringify({environment:info.environment,pages:report},null,2)+'\n');
 console.log(`Verified ${report.length} pages including 404: links, anchors, metadata, headings, indexing, source links and asset budgets.`);
