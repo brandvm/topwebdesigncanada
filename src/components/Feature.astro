@@ -1,12 +1,7 @@
 ---
-import {href} from '../lib/content';
+import {href} from '../lib/content';import Cover from './Cover.astro';import Icon from './Icon.astro';
 import type {CollectionEntry} from 'astro:content';
 interface Props{post?:CollectionEntry<'articles'>}
 const {post}=Astro.props;
 ---
-{post&&<div class="feature" data-review-anchor="featured-guide">
- <div class="feature-top"><span class="eyebrow">The featured guide<br/>2026 edition</span><span class="feature-number" aria-label="10 agencies">10</span></div>
- <h2>{post.data.title.replace(' (2026)','')}</h2>
- <p>Compare capabilities, starting budgets, and client experience. Find the fit for your next project.</p>
- <a class="feature-link" href={href(post.data.slug)}><span>Explore the full comparison</span><span aria-hidden="true">↗</span></a>
-</div>}
+{post&&<article class="feature-story" data-review-anchor="guide-feature"><Cover slug={post.data.slug} label="Featured guide"/><div class="feature-copy"><p class="eyebrow">In focus / {post.data.topic}</p><h2><a href={href(post.data.slug)}>{post.data.title}</a></h2><p>{post.data.description}</p><a class="text-link" href={href(post.data.slug)}>Explore the full guide <Icon name="arrow-up-right"/></a></div></article>}

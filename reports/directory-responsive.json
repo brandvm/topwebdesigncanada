@@ -1,0 +1,155 @@
+{
+  "site": "topwebdesigncanada",
+  "checks": [
+    {
+      "route": "/",
+      "width": 320,
+      "bodyWidth": 320,
+      "h1": "Top Web Design Agencies in Canada2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    },
+    {
+      "route": "/blog/",
+      "width": 320,
+      "bodyWidth": 320,
+      "h1": "Find the right agency.",
+      "logos": 0,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 0
+    },
+    {
+      "route": "/blog/top-web-design-agencies-toronto/",
+      "width": 320,
+      "bodyWidth": 320,
+      "h1": "Top 10 Web Design Agencies in Toronto2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "bodyWidth": 390,
+      "h1": "Top Web Design Agencies in Canada2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    },
+    {
+      "route": "/blog/",
+      "width": 390,
+      "bodyWidth": 390,
+      "h1": "Find the right agency.",
+      "logos": 0,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 0
+    },
+    {
+      "route": "/blog/top-web-design-agencies-toronto/",
+      "width": 390,
+      "bodyWidth": 390,
+      "h1": "Top 10 Web Design Agencies in Toronto2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "bodyWidth": 768,
+      "h1": "Top Web Design Agencies in Canada2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    },
+    {
+      "route": "/blog/",
+      "width": 768,
+      "bodyWidth": 768,
+      "h1": "Find the right agency.",
+      "logos": 0,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 0
+    },
+    {
+      "route": "/blog/top-web-design-agencies-toronto/",
+      "width": 768,
+      "bodyWidth": 768,
+      "h1": "Top 10 Web Design Agencies in Toronto2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    },
+    {
+      "route": "/",
+      "width": 1024,
+      "bodyWidth": 1024,
+      "h1": "Top Web Design Agencies in Canada2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    },
+    {
+      "route": "/blog/",
+      "width": 1024,
+      "bodyWidth": 1024,
+      "h1": "Find the right agency.",
+      "logos": 0,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 0
+    },
+    {
+      "route": "/blog/top-web-design-agencies-toronto/",
+      "width": 1024,
+      "bodyWidth": 1024,
+      "h1": "Top 10 Web Design Agencies in Toronto2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "bodyWidth": 1440,
+      "h1": "Top Web Design Agencies in Canada2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    },
+    {
+      "route": "/blog/",
+      "width": 1440,
+      "bodyWidth": 1440,
+      "h1": "Find the right agency.",
+      "logos": 0,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 0
+    },
+    {
+      "route": "/blog/top-web-design-agencies-toronto/",
+      "width": 1440,
+      "bodyWidth": 1440,
+      "h1": "Top 10 Web Design Agencies in Toronto2026 guide",
+      "logos": 10,
+      "missingImages": [],
+      "overflow": [],
+      "profiles": 10
+    }
+  ]
+}

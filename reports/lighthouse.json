@@ -8,7 +8,7 @@
       "route": "/",
       "mode": "mobile",
       "median": {
-        "performance": 100,
+        "performance": 99,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
@@ -16,42 +16,42 @@
       "runs": [
         {
           "scores": {
-            "performance": 100,
+            "performance": 99,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
           "metrics": {
-            "lcp": 1352.0367,
-            "cls": 0.0184929167877818,
+            "lcp": 1877.42055,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []
         },
         {
           "scores": {
-            "performance": 100,
+            "performance": 99,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
           "metrics": {
-            "lcp": 1352.5212000000001,
-            "cls": 0.014610644141084903,
+            "lcp": 1802.36445,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []
         },
         {
           "scores": {
-            "performance": 100,
+            "performance": 99,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
           "metrics": {
-            "lcp": 1351.5681,
-            "cls": 0.0184929167877818,
+            "lcp": 1877.0180999999998,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []
@@ -76,7 +76,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 322.15355,
+            "lcp": 442.7507,
             "cls": 0,
             "tbt": 0
           },
@@ -90,7 +90,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 320.90434999999997,
+            "lcp": 481.8849,
             "cls": 0,
             "tbt": 0
           },
@@ -104,8 +104,8 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 321.4688,
-            "cls": 0.001080561538686046,
+            "lcp": 443.06858101685157,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []
@@ -114,6 +114,114 @@
     },
     {
       "route": "/blog/",
+      "mode": "mobile",
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1350.8682,
+            "cls": 0.007421194292911275,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1351.05855,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1201.29045,
+            "cls": 0.007421194292911275,
+            "tbt": 0
+          },
+          "failures": []
+        }
+      ]
+    },
+    {
+      "route": "/blog/",
+      "mode": "desktop",
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 321.068,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 321.0668,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 320.87,
+            "cls": 0.001331991105565771,
+            "tbt": 0
+          },
+          "failures": []
+        }
+      ]
+    },
+    {
+      "route": "/blog/top-web-design-agencies-toronto/",
       "mode": "mobile",
       "median": {
         "performance": 99,
@@ -130,8 +238,8 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 1201.3953000000001,
-            "cls": 0.07821512704521402,
+            "lcp": 1727.71035,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []
@@ -144,8 +252,8 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 1351.27275,
-            "cls": 0.07821512704521402,
+            "lcp": 1801.9026,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []
@@ -158,223 +266,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 1351.43985,
-            "cls": 0.07821512704521402,
-            "tbt": 0
-          },
-          "failures": []
-        }
-      ]
-    },
-    {
-      "route": "/blog/",
-      "mode": "desktop",
-      "median": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "runs": [
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 321.15455,
-            "cls": 0.01768927114343461,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 322.69730000000004,
-            "cls": 0.01768927114343461,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 321.49025,
-            "cls": 0,
-            "tbt": 0
-          },
-          "failures": []
-        }
-      ]
-    },
-    {
-      "route": "/blog/top-web-design-agencies-canada/",
-      "mode": "mobile",
-      "median": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "runs": [
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 1501.56345,
-            "cls": 0.001875032152635752,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 1501.4329500000001,
-            "cls": 0.001875032152635752,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 1501.1787000000002,
-            "cls": 0.001875032152635752,
-            "tbt": 0
-          },
-          "failures": []
-        }
-      ]
-    },
-    {
-      "route": "/blog/top-web-design-agencies-canada/",
-      "mode": "desktop",
-      "median": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "runs": [
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 401.62420000000003,
-            "cls": 0,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 400.90569999999997,
-            "cls": 0,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 400.90405000000004,
-            "cls": 0,
-            "tbt": 0
-          },
-          "failures": []
-        }
-      ]
-    },
-    {
-      "route": "/blog/top-web-design-agencies-toronto/",
-      "mode": "mobile",
-      "median": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "runs": [
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 1501.5997499999999,
-            "cls": 0.03241031328195228,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 1502.7508500000001,
-            "cls": 0.03241031328195228,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 99,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 1651.15395,
+            "lcp": 1877.57895,
             "cls": 0,
             "tbt": 0
           },
@@ -400,21 +292,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 401.63289999999995,
-            "cls": 0.004815477501240405,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 401.1961,
+            "lcp": 442.15085,
             "cls": 0,
             "tbt": 0
           },
@@ -428,8 +306,22 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 401.45484999999996,
-            "cls": 0.004815477501240405,
+            "lcp": 485.85159999999996,
+            "cls": 0.000001896360505501561,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 482.09505,
+            "cls": 0.000001896360505501561,
             "tbt": 0
           },
           "failures": []

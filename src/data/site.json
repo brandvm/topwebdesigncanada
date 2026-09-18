@@ -3,17 +3,34 @@
   "masthead": "Web Design\nCanada",
   "name": "Top Web Design Canada",
   "eyebrow": "A CLEARER VIEW OF CANADIAN WEB DESIGN",
-  "headline": "Find your\npeople. Build\nsomething better.",
+  "headline": "Find your nextdigital partner.",
   "intro": "Discover web design teams across Canada and in Toronto. Practical comparisons for businesses ready to invest in a website that works for them.",
-  "accent": "#245b43",
-  "bg": "#ffffff",
-  "ink": "#183a2e",
-  "muted": "#52665b",
-  "line": "#ccd9d0",
+  "accent": "#246347",
+  "bg": "#fcfdfb",
+  "ink": "#173f32",
+  "muted": "#52665c",
+  "line": "#cddcd2",
   "display": "manrope",
   "body": "dm-sans",
   "style": "canada",
   "description": "Explore web design agencies in Canada and Toronto, with comparisons of budgets, expertise, client work, and project fit.",
   "domain": "topwebdesigncanada.ca",
-  "repo": "topwebdesigncanada"
+  "repo": "topwebdesigncanada",
+  "homeArticle": "top-web-design-agencies-canada",
+  "brief": "Explore web design talent, from the national picture to your city.",
+  "direction": "A Canadian agency finder",
+  "navigation": [
+    {
+      "slug": "top-web-design-agencies-canada",
+      "label": "Canada"
+    },
+    {
+      "slug": "top-web-design-agencies-toronto",
+      "label": "Toronto"
+    }
+  ],
+  "articlePaths": {
+    "top-web-design-agencies-canada": "/",
+    "top-web-design-agencies-toronto": "/toronto/"
+  }
 }

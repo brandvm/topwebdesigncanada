@@ -1,13 +1,5 @@
 ---
-import Page from '../layouts/Page.astro';
-import Feature from '../components/Feature.astro';
-import GuideCard from '../components/GuideCard.astro';
-import site from '../data/site.json';
-import {articles,href,withBase} from '../lib/content';
-const posts=await articles();
-const featured=posts[0];
+import Article from '../components/Article.astro';import Page from '../layouts/Page.astro';import {articles,withBase} from '../lib/content';import site from '../data/site.json';
+const post=(await articles()).find(p=>p.data.slug===site.homeArticle);
 ---
-<Page>
-<section class="hero hero-layout" data-review-anchor="hero"><div><p class="eyebrow">{site.eyebrow}</p><h1>{site.headline}</h1><p class="intro">{site.intro}</p><div class="actions"><a class="button" href={withBase("/blog/")}>Explore the guides <span aria-hidden="true">↗</span></a></div></div><div class="canada-panel"><Feature post={featured}/><div class="region-tabs">{posts.map(p=><a href={href(p.data.slug)}>{p.data.topic} ↗</a>)}</div></div></section><section class="section" data-review-anchor="guides"><div class="section-head"><div><p class="eyebrow">THE READING LIST</p><h2>Make your next move<br/>an informed one.</h2></div><p>Detailed comparisons. Useful questions. A clearer view of the options.</p></div>{posts.length===0&&<p>No guides are published yet.</p>}<div class="guide-grid">{posts.map((post,index)=><GuideCard post={post} index={index}/>)}</div></section>
-<section class="section" id="our-approach" data-review-anchor="our-approach"><p class="eyebrow">OUR APPROACH</p><h2>Look at the whole picture.</h2><div class="principles"><div><span class="num">01 / FIT</span><h3>Start with your brief.</h3><p>The right agency depends on what you need. Each guide explains specialities, project fit, and the trade-offs to consider.</p></div><div><span class="num">02 / EVIDENCE</span><h3>Read beyond the headline.</h3><p>Explore client work, service scope, and available feedback. Our articles keep editorial assessments and platform ratings distinct.</p></div><div><span class="num">03 / CONTEXT</span><h3>Compare with care.</h3><p>Published minimums are starting points. Use the methodology and questions in each guide to prepare for a more useful conversation.</p></div></div></section>
-</Page>
+{post?<Article post={post}/>:<Page><section class="hero"><h1>{site.name}</h1><p>Our agency guide is being prepared.</p><a href={withBase('/blog/')}>Browse available comparisons</a></section></Page>}

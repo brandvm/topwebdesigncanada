@@ -20,6 +20,10 @@ async function switchMode(mode:SiteMode,historyAction:'push'|'replace'='push'){
  if(mode==='browse'){review?.deactivateReview();return;}
  try{
   if(!review){status.hidden=false;status.textContent='Opening comments…';}
+  const response=await fetch('/api/session',{credentials:'same-origin',cache:'no-store'});
+  if(!response.ok){location.href='/__login?next='+encodeURIComponent(location.pathname+location.search);return;}
+  const identity=await response.json();document.body.dataset.reviewerName=identity.name;
+  document.getElementById('reviewer-name')!.textContent=identity.name;
   const loaded=await import('./review');
   review=loaded;
   if(request!==revision||current!=='review')return;

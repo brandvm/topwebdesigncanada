@@ -5,7 +5,7 @@ import {Miniflare} from 'miniflare';
 import {build} from 'esbuild';
 const origin='https://staging.test';
 const manifest=JSON.parse(readFileSync('server/review-manifest.json','utf8'));
-const article=Object.keys(manifest.pages).find(p=>p.startsWith('/blog/')&&p!=='/blog/');
+const article='/blog/';const legacy=Object.keys(manifest.aliases)[0];
 const salt='0123456789abcdef0123456789abcdef',password='local-test-password-only';
 const encoder=new TextEncoder();const key=await crypto.subtle.importKey('raw',encoder.encode(password),'PBKDF2',false,['deriveBits']);
 const hash=await crypto.subtle.deriveBits({name:'PBKDF2',salt:Uint8Array.from(salt.match(/../g),s=>parseInt(s,16)),iterations:100000,hash:'SHA-256'},key,256);
@@ -20,28 +20,37 @@ test('authentication, page/branch isolation, shared comments and persistence',as
  const fetch=(path,opts={})=>mf.dispatchFetch(origin+path,opts);
  for(const path of ['/','/_astro/font.woff2','/_review/mode.js','/build-info.json']){const r=await fetch(path,{redirect:'manual'});assert.equal(r.status,303);assert.match(r.headers.get('location'),/^\/__login\?next=/);assert.match(r.headers.get('x-robots-tag'),/noindex/)}
  assert.equal((await fetch('/api/review/threads')).status,401);
- const payload='1.'+crypto.randomUUID(),signingKey=await crypto.subtle.importKey('raw',encoder.encode(options.bindings.SESSION_SECRET),{name:'HMAC',hash:'SHA-256'},false,['sign']);
+ const payload=Buffer.from(JSON.stringify({expires:1,name:'QA',visitor:crypto.randomUUID()})).toString('base64url'),signingKey=await crypto.subtle.importKey('raw',encoder.encode(options.bindings.SESSION_SECRET),{name:'HMAC',hash:'SHA-256'},false,['sign']);
  const signature=Array.from(new Uint8Array(await crypto.subtle.sign('HMAC',signingKey,encoder.encode(payload))),n=>n.toString(16).padStart(2,'0')).join('');
  assert.equal((await fetch('/api/review/threads',{headers:{Cookie:'__Host-review_session='+payload+'.'+signature}})).status,401);
- const login=()=>fetch('/__login',{method:'POST',redirect:'manual',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({password}).toString()});
- const deep=await fetch('/__login',{method:'POST',redirect:'manual',headers:{Origin:origin},body:new URLSearchParams({password,returnTo:'/blog/?mode=review&thread=1'})});assert.equal(deep.headers.get('location'),'/blog/?mode=review&thread=1');
+ const login=()=>fetch('/__login',{method:'POST',redirect:'manual',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({password,name:'QA'}).toString()});
+ const deep=await fetch('/__login',{method:'POST',redirect:'manual',headers:{Origin:origin},body:new URLSearchParams({password,name:'QA',returnTo:'/blog/?mode=review&thread=1'})});assert.equal(deep.headers.get('location'),'/blog/?mode=review&thread=1');
  const response=await login();assert.equal(response.status,303);const cookie=response.headers.get('set-cookie').split(';')[0];assert.match(response.headers.get('set-cookie'),/HttpOnly; Secure; SameSite=Strict/);
  assert.equal((await fetch('/_review/mode.js',{headers:{Cookie:cookie}})).status,200);
  assert.equal((await fetch('/__login',{method:'POST',headers:{Origin:'https://evil.test'},body:'password=x'})).status,403);
  assert.equal((await fetch('/api/review/threads',{headers:{Cookie:cookie.replace(/.$/,'z')}})).status,401);
+ assert.equal((await (await fetch('/api/session',{headers:{Cookie:cookie}})).json()).name,'QA');
+ assert.equal((await fetch('/__login',{method:'POST',headers:{Origin:origin},body:new URLSearchParams({password})})).status,400);
+ const deviceCookie=response.headers.getSetCookie().find(c=>c.startsWith('__Host-review_device=')).split(';')[0];
+ const renewed=await fetch('/__login',{method:'POST',redirect:'manual',headers:{Origin:origin,Cookie:deviceCookie},body:new URLSearchParams({password,name:'QA'})});
+ const renewedCookie=renewed.headers.getSetCookie().find(c=>c.startsWith('__Host-review_session=')).split(';')[0];
+ const secondResponse=await fetch('/__login',{method:'POST',redirect:'manual',headers:{Origin:origin},body:new URLSearchParams({password,name:'Second reviewer'})});
+ const secondCookie=secondResponse.headers.getSetCookie().find(c=>c.startsWith('__Host-review_session=')).split(';')[0];
  const visitor=crypto.randomUUID(),secondVisitor=crypto.randomUUID();
  const api=async(path,method='GET',body,extra={})=>{const r=await fetch('/api/review'+path,{method,headers:{Origin:origin,Cookie:cookie,'X-Review-Visitor':visitor,'X-Review-Page':'/','X-Review-Scope':'main','Content-Type':'application/json',...extra},...(body?{body:JSON.stringify(body)}:{})});return{status:r.status,data:await r.json()}};
- const data={requestId:crypto.randomUUID(),name:'QA',body:'Persistent point comment',anchor:'hero',anchorLabel:'Hero',x:2500,y:2000,width:0,height:0,selectionType:'point',commit:'abc1234',viewportWidth:1440,viewportHeight:900};
+ const data={requestId:crypto.randomUUID(),name:'QA',body:'Persistent point comment',anchor:'article-header',anchorLabel:'Article header',x:2500,y:2000,width:0,height:0,selectionType:'point',commit:'abc1234',viewportWidth:1440,viewportHeight:900};
  const created=await api('/threads','POST',data);assert.equal(created.status,200);const tid=created.data.id;
  assert.equal((await api('/threads','POST',data)).data.id,tid);
+ assert.equal((await api('/threads','POST',data,{Cookie:renewedCookie})).data.id,tid,'Saved retries survive reauthentication on the same device');
  assert.equal((await api('/threads','POST',{...data,body:'changed'})).status,409);
  assert.equal((await api('/threads/'+tid,'GET',null,{'X-Review-Page':article})).status,404);
  assert.equal((await api('/threads/'+tid,'GET',null,{'X-Review-Scope':'other'})).status,400);
  assert.equal((await api('/threads','GET',null,{'X-Review-Page':'/__invalid'})).status,400);
- const other=await api('/threads','GET',null,{'X-Review-Visitor':secondVisitor});assert.equal(other.data.threads.length,1);
+ const other=await api('/threads','GET',null,{Cookie:secondCookie});assert.equal(other.data.threads.length,1);
  const area=await api('/threads','POST',{...data,requestId:crypto.randomUUID(),body:'Area comment',width:2000,height:1500,selectionType:'area'});assert.equal(area.status,200);
- const reply=await api(`/threads/${tid}/replies`,'POST',{requestId:crypto.randomUUID(),name:'Second reviewer',body:'A reply'});assert.equal(reply.status,200);
+ const reply=await api(`/threads/${tid}/replies`,'POST',{requestId:crypto.randomUUID(),name:'Forged body name',body:'A reply'},{Cookie:secondCookie});assert.equal(reply.status,200);
  const detail=await api('/threads/'+tid);assert.equal(detail.data.replies.length,1);assert.equal(detail.data.thread.commit_id,'abc1234');assert.equal(detail.data.thread.viewport_width,1440);
+ assert.equal(detail.data.root.name,'QA');assert.equal(detail.data.replies[0].name,'Second reviewer','Submitted names cannot override the signed login identity');
  const mid=detail.data.root.id;
  assert.equal((await api(`/messages/${mid}/reactions`,'PUT',{emoji:'👍',active:true})).status,200);
  assert.equal((await api(`/messages/${mid}/reactions`,'PUT',{emoji:'👍',active:true},{'X-Review-Page':article})).status,404);
@@ -53,6 +62,34 @@ test('authentication, page/branch isolation, shared comments and persistence',as
  assert.equal((await api('/threads?status=all','GET',null,{'X-Review-Scope':'pr-9'})).data.threads.length,0);
  await mf.setOptions(options);
  assert.equal((await api('/threads?status=all')).data.threads.length,2);
+ // Moving an article to / preserves old threads and direct links without changing D1 rows.
+ const redirect=await fetch(legacy+'?mode=review&thread='+tid,{headers:{Cookie:cookie},redirect:'manual'});assert.equal(redirect.status,301);assert.equal(redirect.headers.get('location'),'/?mode=review&thread='+tid);
+ await (await mf.getD1Database('DB')).prepare('UPDATE review_threads SET page=? WHERE id=?').bind(legacy,tid).run();
+ assert.equal((await api('/threads/'+tid)).data.thread.page,legacy);
+ assert.equal((await api('/threads?status=all')).data.threads.length,2);
+ assert.equal((await api('/threads/'+tid,'GET',null,{'X-Review-Page':legacy})).status,200);
+ assert.equal((await api(`/messages/${mid}/reactions`,'PUT',{emoji:'👀',active:true})).status,200);
+ assert.equal((await api('/threads/'+tid,'PATCH',{resolved:true})).status,200);
+ assert.equal((await api('/threads?status=resolved')).data.counts.resolved,1);
+ const movedReply=await api(`/threads/${tid}/replies`,'POST',{requestId:crypto.randomUUID(),body:'Reply after the page moved'},{Cookie:secondCookie});assert.equal(movedReply.status,200);
+ assert.equal((await api('/threads/'+tid,'GET',null,{'X-Review-Page':article})).status,404);
+ // Each shortened subpage keeps its own legacy conversation and cannot read another page's threads.
+ for(const [oldPage,newPage] of Object.entries(manifest.aliases).filter(([,to])=>to!=='/')){
+  const redirected=await fetch(oldPage+'?mode=review&thread=42',{headers:{Cookie:cookie},redirect:'manual'});
+  assert.equal(redirected.status,301);assert.equal(redirected.headers.get('location'),newPage+'?mode=review&thread=42');
+  const headers={'X-Review-Page':newPage};
+  const made=await api('/threads','POST',{...data,requestId:crypto.randomUUID(),body:'Subpage review'},headers);assert.equal(made.status,200);
+  const subId=made.data.id;
+  await (await mf.getD1Database('DB')).prepare('UPDATE review_threads SET page=? WHERE id=?').bind(oldPage,subId).run();
+  const oldThread=await api('/threads/'+subId,'GET',null,headers);assert.equal(oldThread.data.thread.page,oldPage);
+  assert.equal((await api('/threads/'+subId,'GET',null,{'X-Review-Page':oldPage})).status,200);
+  assert.equal((await api('/threads/'+subId)).status,404);
+  for(const otherPage of Object.values(manifest.aliases).filter(to=>to!==newPage))assert.equal((await api('/threads/'+subId,'GET',null,{'X-Review-Page':otherPage})).status,404);
+  assert.equal((await api('/threads?status=all','GET',null,headers)).data.counts.total,1);
+  assert.equal((await api(`/threads/${subId}/replies`,'POST',{requestId:crypto.randomUUID(),body:'Reply at the new URL'},{...headers,Cookie:secondCookie})).status,200);
+  assert.equal((await api(`/messages/${oldThread.data.root.id}/reactions`,'PUT',{emoji:'👍',active:true},headers)).status,200);
+  assert.equal((await api('/threads/'+subId,'PATCH',{resolved:true},headers)).status,200);
+ }
  const logout=await fetch('/__logout',{method:'POST',redirect:'manual',headers:{Origin:origin,Cookie:cookie}});assert.equal(logout.status,303);assert.match(logout.headers.get('set-cookie'),/Max-Age=0/);
  for(let i=0;i<10;i++)await login();assert.equal((await login()).status,429);
  }finally{await mf.dispose()}

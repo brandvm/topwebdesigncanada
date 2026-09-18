@@ -1,6 +1,6 @@
 # Top Web Design Canada
 
-An independent Astro publication for `topwebdesigncanada.ca`. This public repository contains the editorial source; Cloudflare staging is password-protected and noindex. Production domains remain untouched. There is no GitHub Pages deployment.
+An Astro agency directory for `topwebdesigncanada.ca`. This public repository contains the editorial source; Cloudflare staging is password-protected and noindex. Production domains remain untouched. There is no GitHub Pages deployment.
 
 ## Edit locally
 
@@ -20,7 +20,7 @@ The overview and profiles use the same agency records, preserving the different 
 
 See `docs/staging.md` for the deployed URL. The shared password is delivered privately, outside Git. A secure, HttpOnly, SameSite cookie expires after 12 hours; Log out clears it. Worker-first routing protects pages, direct assets, API calls and version previews. Noindex headers remain independent of login.
 
-Choose **Comment** or append `?mode=review`. Click a point, drag an area, or choose a section and select **Add comment** using the keyboard. Enter a display name, post feedback, reply, react, resolve or reopen, and copy a direct thread link from Comment options. Escape closes the card or returns to Browse. Display names identify feedback; they are not verified accounts.
+Choose **Comment** or append `?mode=review`. Click a point, drag an area, or choose a section and select **Add comment** using the keyboard. Sign in with your name and the shared password, then post feedback, reply, react, resolve or reopen, and copy a direct thread link from Comment options. Escape closes the card or returns to Browse. The name entered at login identifies feedback; they are not verified accounts.
 
 Comments are isolated by page and review scope (main or PR number), with one D1 database for this site. Each thread records its original commit and viewport. Stable `data-review-anchor` IDs survive layout reordering. If an anchor disappears, the thread stays available through comment navigation with an explicit location-changed notice. Drafts stay in this browser's local storage until successfully submitted; do not enter secrets into comments.
 
@@ -49,3 +49,15 @@ Production output has zero review code or controls, no API routes, and no databa
 ## Rollback
 
 Use `npx wrangler deployments list` and `npx wrangler rollback <version-id>` to restore a prior staging version. D1 comments persist independently. Keep migrations backward-compatible; code rollback does not undo schema changes. Scope, password and session secrets must remain consistent for the intended preview. Review `reports/acceptance.md` for the completed exercise.
+
+## Visual design review
+
+Open `/design/` on protected staging for this publication’s rendered style guide. The [reference board](https://topbrandingagencieschicago-staging.hamoun-ce6.workers.dev/design/references/) contains dated screenshots and explicit design takeaways. Both support page-specific review comments. `design/` is copied only by staging builds and is excluded from production. See `docs/style-guide.md`.
+
+## Directory homepage
+
+The full `top-web-design-agencies-canada` article is the homepage. Additional articles use `/toronto/` and appear directly in the navbar. `src/data/site.json` maps stable content IDs to public paths. `/blog/` remains a secondary comparison index, linked in the footer. Former `/blog/<slug>/` article URLs redirect to their canonical paths and are excluded from the sitemap; review queries include their legacy conversations without moving or deleting D1 records. Original anchors, commit context and page isolation remain intact.
+
+All interface typography uses self-hosted modern sans-serif Google Fonts. Company marks are small locally hosted identity images; `docs/agency-marks.json` records their source. Where an official asset is unavailable, a neutral initials tile identifies the agency. These are company navigation tiles, not client endorsements or verification badges.
+
+Subpage review drafts retain their previous browser storage keys when public paths change. Existing comment records stay in place and are accessible at the new URLs.
