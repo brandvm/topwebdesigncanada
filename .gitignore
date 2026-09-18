@@ -15,3 +15,4 @@ reports/install.log
 reports/check.log
 reports/audit.log
 reports/staging-build.log
+reports/staging-test.log

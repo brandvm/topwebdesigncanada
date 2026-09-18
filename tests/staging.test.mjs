@@ -18,12 +18,13 @@ test('authentication, page/branch isolation, shared comments and persistence',as
  try{
  const db=await mf.getD1Database('DB');await db.exec(readFileSync('migrations/0001_review.sql','utf8').replace(/\n/g,' '));
  const fetch=(path,opts={})=>mf.dispatchFetch(origin+path,opts);
- for(const path of ['/','/_astro/font.woff2','/_review/mode.js','/build-info.json']){const r=await fetch(path,{redirect:'manual'});assert.equal(r.status,303);assert.equal(r.headers.get('location'),'/__login');assert.match(r.headers.get('x-robots-tag'),/noindex/)}
+ for(const path of ['/','/_astro/font.woff2','/_review/mode.js','/build-info.json']){const r=await fetch(path,{redirect:'manual'});assert.equal(r.status,303);assert.match(r.headers.get('location'),/^\/__login\?next=/);assert.match(r.headers.get('x-robots-tag'),/noindex/)}
  assert.equal((await fetch('/api/review/threads')).status,401);
  const payload='1.'+crypto.randomUUID(),signingKey=await crypto.subtle.importKey('raw',encoder.encode(options.bindings.SESSION_SECRET),{name:'HMAC',hash:'SHA-256'},false,['sign']);
  const signature=Array.from(new Uint8Array(await crypto.subtle.sign('HMAC',signingKey,encoder.encode(payload))),n=>n.toString(16).padStart(2,'0')).join('');
  assert.equal((await fetch('/api/review/threads',{headers:{Cookie:'__Host-review_session='+payload+'.'+signature}})).status,401);
  const login=()=>fetch('/__login',{method:'POST',redirect:'manual',headers:{Origin:origin,'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({password}).toString()});
+ const deep=await fetch('/__login',{method:'POST',redirect:'manual',headers:{Origin:origin},body:new URLSearchParams({password,returnTo:'/blog/?mode=review&thread=1'})});assert.equal(deep.headers.get('location'),'/blog/?mode=review&thread=1');
  const response=await login();assert.equal(response.status,303);const cookie=response.headers.get('set-cookie').split(';')[0];assert.match(response.headers.get('set-cookie'),/HttpOnly; Secure; SameSite=Strict/);
  assert.equal((await fetch('/_review/mode.js',{headers:{Cookie:cookie}})).status,200);
  assert.equal((await fetch('/__login',{method:'POST',headers:{Origin:'https://evil.test'},body:'password=x'})).status,403);
