@@ -1,0 +1,11 @@
+---
+import {href} from '../lib/content';
+import type {CollectionEntry} from 'astro:content';
+interface Props{post:CollectionEntry<'articles'>;index?:number;heading?:'h2'|'h3'}
+const {post,index=0,heading:Heading='h3'}=Astro.props;
+---
+<a class="guide-card" href={href(post.data.slug)} data-review-anchor={`guide-${post.data.slug}`}>
+ <span class="eyebrow">{String(index+1).padStart(2,'0')} / {post.data.topic}</span>
+ <Heading>{post.data.title}</Heading><p>{post.data.description}</p>
+ <span class="card-foot"><span>10 agencies · 2026 guide</span><span aria-hidden="true">Read the guide ↗</span></span>
+</a>

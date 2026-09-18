@@ -1,0 +1,18 @@
+---
+import {withBase} from '../lib/content';
+import site from '../data/site.json';
+import Mark from '../components/Mark.astro';
+import '../styles/site.css';
+interface Props{title?:string;description?:string;schema?:unknown[];pageId?:string}
+const {title=site.name,description=site.description,schema=[]}=Astro.props;
+const staging=import.meta.env.DEPLOY_ENV==='staging';
+const publicSite=new URL('https://'+site.domain+'/');
+const route=Astro.url.pathname.replace(import.meta.env.BASE_URL,'/');
+const canonical=new URL(route,publicSite).href;
+const publisher={'@type':'Organization','@id':`${publicSite}#publisher`,name:site.name,url:publicSite.href,logo:new URL('/wordmark.svg',publicSite).href};
+const graph=[publisher,{'@type':'WebSite','@id':`${publicSite}#website`,name:site.name,url:publicSite.href,publisher:{'@id':publisher['@id']}},...schema];
+---
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="build-revision" content={import.meta.env.BUILD_COMMIT||'local'}/><meta name="theme-color" content={site.bg}/><title>{title===site.name?title:`${title} | ${site.name}`}</title><meta name="description" content={description}/><link rel="canonical" href={canonical}/><link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content={route.startsWith('/blog/')&&route!=='/blog/'?'article':'website'}/><meta property="og:url" content={canonical}/><meta property="og:image" content={new URL('/social.png',publicSite).href}/><meta property="og:site_name" content={site.name}/><meta name="twitter:card" content="summary_large_image"/>{staging&&<meta name="robots" content="noindex,nofollow"/>}<script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@graph':graph}).replace(/</g,'\\u003c')}/></head><body id="top" >
+<a href="#main" class="skip">Skip to content</a><div class="wrap"><header class="site-header" data-review-anchor="header"><a class="brand" href={withBase("/")} aria-label={`${site.name} home`}><Mark/><span class="brand-name">{site.masthead}</span></a><nav class="nav" aria-label="Main navigation"><a href={withBase("/")} aria-current={route==='/'?'page':undefined}>Home</a><a href={withBase("/blog/")} aria-current={route==='/blog/'?'page':undefined}>The guides</a><a class="nav-guide" href={withBase("/#our-approach")}>Our approach ↗</a></nav></header><main id="main"><slot/></main><footer class="site-footer" data-review-anchor="footer"><div><strong>{site.name}</strong><p>{site.description}</p><p>© {new Date().getFullYear()} {site.name}</p></div><nav class="footer-nav" aria-label="Footer navigation"><a href={withBase("/")}>Home</a><a href={withBase("/blog/")}>All guides</a><a href="#top">Back to top ↑</a></nav></footer></div>
+
+</body></html>

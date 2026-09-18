@@ -1,0 +1,212 @@
+{
+  "headers": [
+    "Rank",
+    "Agency",
+    "Established",
+    "Locations",
+    "Minimum Budget",
+    "Focus",
+    "Score"
+  ],
+  "agencies": [
+    {
+      "id": "agency-brand-vision",
+      "name": "Brand Vision",
+      "heading": "1. Brand Vision",
+      "cells": [
+        "1",
+        "Brand Vision",
+        "2018",
+        "Toronto; Chicago; San Francisco; Miami",
+        "$10,000+",
+        "Brand strategy, custom websites, UX/UI, SEO",
+        "9.3/10"
+      ],
+      "facts": [
+        "📍  Toronto, Canada; Chicago, San Francisco, and Miami, USA<br><strong>Established:</strong> 2018<br><strong>Minimum budget:</strong> US$10,000+<br><strong>Ratings:</strong> Clutch: 5.0/5; Google*: 4.9/5; DesignRush: 4.8/5.<br><strong>Clients:</strong> Flipp, FHN Financial, Safeway Business, TeraWulf, Roncelli."
+      ]
+    },
+    {
+      "id": "agency-mojo-media",
+      "name": "Mojo Media",
+      "heading": "2. Mojo Media",
+      "cells": [
+        "2",
+        "Mojo Media",
+        "2018",
+        "Toronto; seven US cities",
+        "$1,000+",
+        "Custom WordPress websites, redesigns, lead generation",
+        "9.1/10"
+      ],
+      "facts": [
+        "📍  Toronto, Canada; Los Angeles, Dallas, Chicago, Miami, Austin, New York, and San Francisco, USA<br><strong>Established:</strong> 2018<br><strong>Minimum budget:</strong> US$1,000+<br><strong>Ratings:</strong> Clutch: 5.0/5; Google*: 5.0/5; DesignRush: 5.0/5.<br><strong>Clients:</strong> Schulich School of Business, HighGate Properties, Avatar Home Health &amp; Hospice, Betts Diplas, MAXIMUS Performance."
+      ]
+    },
+    {
+      "id": "agency-envy-design-co",
+      "name": "Envy Design Co.",
+      "heading": "3. Envy Design Co.",
+      "cells": [
+        "3",
+        "Envy Design Co.",
+        "2017",
+        "Toronto",
+        "$10,000+",
+        "Branding, web design, packaging, print design",
+        "9.0/10"
+      ],
+      "facts": [
+        "📍  Toronto, Canada<br><strong>Established:</strong> 2017<br><strong>Minimum budget:</strong> US$10,000+<br><strong>Ratings:</strong> Clutch: 5.0/5; Google*: 5.0/5; DesignRush: 4.9/5.<br><strong>Clients:</strong> Visa, Deloitte, Johnson &amp; Johnson, Marriott, The Miller Group."
+      ]
+    },
+    {
+      "id": "agency-thrillx",
+      "name": "ThrillX",
+      "heading": "4. ThrillX",
+      "cells": [
+        "4",
+        "ThrillX",
+        "2021",
+        "Toronto; Houston",
+        "$1,000+",
+        "Conversion-focused web design, UX/UI, website messaging",
+        "8.9/10"
+      ],
+      "facts": [
+        "📍  Toronto, Canada; Houston, USA<br><strong>Established:</strong> 2021<br><strong>Minimum budget:</strong> US$1,000+<br><strong>Ratings:</strong> Clutch: 4.9/5; Google*: 5.0/5; DesignRush: 4.6/5.<br><strong>Clients:</strong> Influence Hunter, RAIZE, Taply.io, Passport Springs &amp; Spa, NeoReach."
+      ]
+    },
+    {
+      "id": "agency-kinex-media",
+      "name": "Kinex Media",
+      "heading": "5. Kinex Media",
+      "cells": [
+        "5",
+        "Kinex Media",
+        "2008",
+        "Mississauga headquarters; Toronto",
+        "$5,000+",
+        "E-commerce, Shopify, Adobe Commerce/Magento, SEO",
+        "8.9/10"
+      ],
+      "facts": [
+        "📍  Mississauga headquarters and Toronto, Canada<br><strong>Established:</strong> 2008<br><strong>Minimum budget:</strong> US$5,000+<br><strong>Ratings:</strong> Clutch: 5.0/5; Google*: 5.0/5, Toronto listing; DesignRush: No native rating shown.<br><strong>Clients:</strong> Staples, Amerijet, Catelli, Home Hardware, Zebra Pen."
+      ]
+    },
+    {
+      "id": "agency-takt",
+      "name": "Takt",
+      "heading": "6. Takt",
+      "cells": [
+        "6",
+        "Takt",
+        "2012",
+        "Vancouver; Toronto; New York",
+        "$25,000+",
+        "Brand strategy, website design, digital experiences",
+        "8.9/10"
+      ],
+      "facts": [
+        "📍  Vancouver and Toronto, Canada; New York, USA<br><strong>Established:</strong> 2012<br><strong>Minimum budget:</strong> US$25,000+<br><strong>Ratings:</strong> Clutch: 5.0/5; Google*: 4.7/5, Vancouver listing; DesignRush: No native rating shown.<br><strong>Clients:</strong> NHL Players’ Association, NYU Skirball, Adler University, Primasun."
+      ]
+    },
+    {
+      "id": "agency-eggs-media",
+      "name": "Eggs Media",
+      "heading": "7. Eggs Media",
+      "cells": [
+        "7",
+        "Eggs Media",
+        "2014",
+        "Toronto",
+        "$5,000+",
+        "Custom WordPress websites, web applications, ongoing support",
+        "8.7/10"
+      ],
+      "facts": [
+        "📍  Toronto, Canada<br><strong>Established:</strong> 2013<br><strong>Minimum budget:</strong> US$5,000+ on Clutch<br><strong>Ratings:</strong> Clutch: 4.9/5; Google*: 5.0/5, displayed by the agency; DesignRush: Not verified.<br><strong>Clients:</strong> University of Toronto Students’ Union, STN Video, McRock Capital, Men Therapy Toronto."
+      ]
+    },
+    {
+      "id": "agency-hppy",
+      "name": "HPPY",
+      "heading": "8. HPPY",
+      "cells": [
+        "8",
+        "HPPY",
+        "2016",
+        "Toronto; Singapore",
+        "$10,000+",
+        "Webflow websites, UX/UI, branding, creative support",
+        "8.7/10"
+      ],
+      "facts": [
+        "📍  Toronto, Canada; Singapore<br><strong>Established:</strong> 2016<br><strong>Minimum budget:</strong> US$10,000+<br><strong>Ratings:</strong> Clutch: 4.9/5; Google*: 5.0/5, via Birdeye; DesignRush: No native rating shown.<br><strong>Clients:</strong> TD, Nissan, Clickatell, Delvinia, U Vision Group."
+      ]
+    },
+    {
+      "id": "agency-thinkbound-inc",
+      "name": "Thinkbound Inc.",
+      "heading": "9. Thinkbound Inc.",
+      "cells": [
+        "9",
+        "Thinkbound Inc.",
+        "2010",
+        "Toronto",
+        "$10,000+",
+        "Custom websites, applications, business-system integrations",
+        "8.6/10"
+      ],
+      "facts": [
+        "📍  Toronto, Canada<br><strong>Established:</strong> 2010<br><strong>Minimum budget:</strong> US$10,000+<br><strong>Ratings:</strong> Clutch: 4.9/5; Google*: 4.9/5; DesignRush: No native rating shown.<br><strong>Clients:</strong> StorageVault, Fox &amp; Fiddle, STOMP Realty, Box Me Up."
+      ]
+    },
+    {
+      "id": "agency-blue-flamingo-solutions",
+      "name": "Blue Flamingo Solutions",
+      "heading": "10. Blue Flamingo Solutions",
+      "cells": [
+        "10",
+        "Blue Flamingo Solutions",
+        "1998",
+        "Toronto; Calgary; Vancouver; London, UK",
+        "$5,000+",
+        "WordPress, custom software, maintenance, integrations",
+        "8.6/10"
+      ],
+      "facts": [
+        "📍  Toronto, Calgary, and Vancouver, Canada; London, UK<br><strong>Established:</strong> 1998<br><strong>Minimum budget:</strong> US$5,000+<br><strong>Ratings:</strong> Clutch: 4.9/5; Google*: 5.0/5; DesignRush: No native rating shown.<br><strong>Clients:</strong> GLP, Life and Death Matters, SurePay, Volaris Group, IPSX."
+      ]
+    }
+  ],
+  "quickMatch": {
+    "headers": [
+      "<strong>Your Situation</strong>",
+      "<strong>Best-Fit Agency</strong>",
+      "<strong>Why It Makes the Shortlist</strong>"
+    ],
+    "rows": [
+      [
+        "<strong>Best overall pick</strong>",
+        "<strong>Brand Vision</strong>",
+        "Our highest combined editorial assessment for its balance of brand and web design capability, client feedback, portfolio relevance, and published entry budget."
+      ],
+      [
+        "<strong>Your brand and website both need updating</strong>",
+        "<strong>Brand Vision or Envy Design Co.</strong>",
+        "Brand Vision suits a coordinated strategic and digital rebuild. Envy is especially relevant when the redesign must extend across packaging, presentations, and print."
+      ],
+      [
+        "<strong>Your website is central to online purchasing</strong>",
+        "<strong>Kinex Media</strong>",
+        "Its commerce-focused portfolio and Shopify and Adobe Commerce capabilities align with catalogue, checkout, and integration requirements."
+      ],
+      [
+        "<strong>You need a focused WordPress website with a lower entry budget</strong>",
+        "<strong>Mojo Media</strong>",
+        "Its US$1,000 published minimum makes it an accessible starting point for a scope discussion, without implying that a complete custom website will cost that amount."
+      ]
+    ]
+  }
+}

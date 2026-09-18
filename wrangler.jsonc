@@ -1,0 +1,26 @@
+{
+  "name": "topwebdesigncanada-staging",
+  "main": "server/worker.mjs",
+  "compatibility_date": "2026-09-18",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "vars": {
+    "REVIEW_SCOPE": "main"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "topwebdesigncanada-review",
+      "database_id": "4127f394-64c0-4969-9215-e323086af032",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "account_id": "ce645e22953cc9c203c64fe0f2bada66"
+}

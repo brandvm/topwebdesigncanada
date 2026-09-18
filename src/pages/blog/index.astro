@@ -1,0 +1,11 @@
+---
+import Page from '../../layouts/Page.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import site from '../../data/site.json';
+import {articles} from '../../lib/content';
+const posts=await articles();
+---
+<Page title={`Guides & comparisons`} description={`Browse ${site.name}'s detailed agency comparisons, practical hiring advice, and project guides.`}>
+<section class="list-hero" data-review-anchor="hero"><p class="eyebrow">THE GUIDES / {site.short}</p><h1>A little perspective.<br/>A better shortlist.</h1><p>Explore the capabilities, the client work, and the questions that matter before choosing an agency.</p></section>
+<section class="listing" aria-label="All articles" data-review-anchor="article-list"><div class="list-count"><span>{posts.length} {posts.length===1?'guide':'guides'}</span><span>Agency comparisons · 2026</span></div><div class="guide-grid">{posts.map((post,index)=><GuideCard heading="h2" post={post} index={index}/>)}</div></section>
+</Page>

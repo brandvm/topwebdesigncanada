@@ -1,0 +1,35 @@
+{
+  "name": "topwebdesigncanada",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "node scripts/build.mjs production",
+    "build:staging": "node scripts/build.mjs staging",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check",
+    "test": "node --test tests/content.test.mjs",
+    "verify": "npm run check && npm test && npm run build && node scripts/verify.mjs",
+    "audit": "node scripts/audit.mjs",
+    "dev:staging": "npm run build:staging && wrangler dev",
+    "deploy:staging": "npm run build:staging && wrangler deploy",
+    "test:staging": "node --test tests/staging.test.mjs"
+  },
+  "dependencies": {
+    "astro": "7.3.3",
+    "@astrojs/mdx": "8.0.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "typescript": "6.0.3",
+    "linkedom": "0.18.13",
+    "lighthouse": "13.5.0",
+    "wrangler": "4.135.0",
+    "miniflare": "4.20260730.0",
+    "esbuild": "0.28.2"
+  }
+}

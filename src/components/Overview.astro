@@ -1,0 +1,7 @@
+---
+interface Props{ranking:{headers:string[];agencies:{id:string;cells:string[]}[]}}
+const {ranking}=Astro.props;
+---
+<div class="table-scroll" tabindex="0" role="region" aria-label="Agency comparison table; scroll horizontally on smaller screens" data-review-anchor="comparison-table">
+<table><caption>Agency comparison</caption><thead><tr>{ranking.headers.map(h=><th scope="col">{h}</th>)}</tr></thead><tbody>{ranking.agencies.map(a=><tr>{a.cells.map((c,i)=><td>{i===1?<a href={`#${a.id}`}>{c}</a>:c}</td>)}</tr>)}</tbody></table>
+</div><p class="scroll-hint">On smaller screens, scroll the table to compare every detail.</p>

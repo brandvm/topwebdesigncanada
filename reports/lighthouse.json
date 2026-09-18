@@ -1,0 +1,332 @@
+{
+  "site": "topwebdesigncanada",
+  "build": "local",
+  "tool": "Lighthouse",
+  "runsPerPage": 3,
+  "results": [
+    {
+      "route": "/",
+      "mode": "mobile",
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1352.0367,
+            "cls": 0.0184929167877818,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1352.5212000000001,
+            "cls": 0.014610644141084903,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1351.5681,
+            "cls": 0.0184929167877818,
+            "tbt": 0
+          },
+          "failures": []
+        }
+      ]
+    },
+    {
+      "route": "/",
+      "mode": "desktop",
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 322.15355,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 320.90434999999997,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 321.4688,
+            "cls": 0.001080561538686046,
+            "tbt": 0
+          },
+          "failures": []
+        }
+      ]
+    },
+    {
+      "route": "/blog/",
+      "mode": "mobile",
+      "median": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1201.3953000000001,
+            "cls": 0.07821512704521402,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1351.27275,
+            "cls": 0.07821512704521402,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1351.43985,
+            "cls": 0.07821512704521402,
+            "tbt": 0
+          },
+          "failures": []
+        }
+      ]
+    },
+    {
+      "route": "/blog/",
+      "mode": "desktop",
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 321.15455,
+            "cls": 0.01768927114343461,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 322.69730000000004,
+            "cls": 0.01768927114343461,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 321.49025,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        }
+      ]
+    },
+    {
+      "route": "/blog/top-web-design-agencies-canada/",
+      "mode": "mobile",
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1501.56345,
+            "cls": 0.001875032152635752,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1501.4329500000001,
+            "cls": 0.001875032152635752,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1501.1787000000002,
+            "cls": 0.001875032152635752,
+            "tbt": 0
+          },
+          "failures": []
+        }
+      ]
+    },
+    {
+      "route": "/blog/top-web-design-agencies-canada/",
+      "mode": "desktop",
+      "median": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "runs": [
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 401.62420000000003,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 400.90569999999997,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 400.90405000000004,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        }
+      ]
+    }
+  ]
+}

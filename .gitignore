@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.dev.vars*
+.env*
+!.env.example
+reports/raw/
+.DS_Store
+server/review-manifest.json
+.staging-secrets*
+reports/build.log
+.audit-dist/
+reports/install.log
+reports/check.log
+reports/audit.log
+reports/staging-build.log

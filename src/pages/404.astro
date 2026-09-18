@@ -1,0 +1,5 @@
+---
+import {withBase} from '../lib/content';
+import Page from '../layouts/Page.astro';
+---
+<Page title="Page not found" description="This page could not be found. Browse our agency guides to find what you need."><section class="hero"><p class="eyebrow">404 / PAGE NOT FOUND</p><h1>Let's get you<br/>back on track.</h1><p class="intro">This address doesn't lead to a guide. Explore the current articles below.</p><div class="actions"><a class="button" href={withBase("/blog/")}>Browse the guides ↗</a></div></section></Page>

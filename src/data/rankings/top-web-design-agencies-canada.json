@@ -1,0 +1,232 @@
+{
+  "headers": [
+    "#",
+    "Agency",
+    "Established",
+    "Locations",
+    "Min. budget",
+    "Focus",
+    "Score"
+  ],
+  "agencies": [
+    {
+      "id": "agency-brand-vision",
+      "name": "Brand Vision",
+      "heading": "1. Brand Vision",
+      "cells": [
+        "1",
+        "Brand Vision",
+        "2018",
+        "Toronto, Canada; Chicago, San Francisco and Miami, USA",
+        "$10,000+",
+        "Brand strategy, custom web design, UX/UI, SEO",
+        "9.4/10"
+      ],
+      "facts": [
+        "📍 Toronto, Canada; Chicago, San Francisco and Miami, USA<br><strong>Established:</strong> 2018<br><strong>Minimum budget:</strong> US$10,000+",
+        "<strong>Ratings:</strong> Clutch: 5.0/5; Google: 4.9/5; DesignRush: 4.8/5.",
+        "<strong>Clients:</strong> Flipp, ArcelorMittal, Safeway Business, FHN Financial, TeraWulf."
+      ]
+    },
+    {
+      "id": "agency-envy-design-co",
+      "name": "Envy Design Co.",
+      "heading": "2. Envy Design Co.",
+      "cells": [
+        "2",
+        "Envy Design Co.",
+        "2017",
+        "Toronto, Canada",
+        "$10,000+",
+        "Custom WordPress websites, branding, digital and print design",
+        "9.1/10"
+      ],
+      "facts": [
+        "📍 Toronto, Canada<br><strong>Established:</strong> 2017<br><strong>Minimum budget:</strong> US$10,000+",
+        "<strong>Ratings:</strong> Clutch: 5.0/5; Google: 5.0/5; DesignRush: 4.9/5.",
+        "<strong>Clients:</strong> Visa, Deloitte, Johnson &amp; Johnson, Marriott, The Miller Group."
+      ]
+    },
+    {
+      "id": "agency-thrillx",
+      "name": "ThrillX",
+      "heading": "3. ThrillX",
+      "cells": [
+        "3",
+        "ThrillX",
+        "2021*",
+        "Toronto, Canada; Houston, USA",
+        "$1,000+",
+        "Conversion-focused websites, UX/UI, conversion optimization",
+        "9.0/10"
+      ],
+      "facts": [
+        "📍 Toronto, Canada; Houston, USA<br><strong>Established:</strong> 2021, according to Clutch<br><strong>Minimum budget:</strong> US$1,000+",
+        "<strong>Ratings:</strong> Clutch: 4.9/5; Google: 5.0/5; DesignRush: 4.6/5.",
+        "<strong>Clients:</strong> Wightman, The Lion Group, Scrubby, Golden Leads, Influence Hunter."
+      ]
+    },
+    {
+      "id": "agency-kinex-media",
+      "name": "Kinex Media",
+      "heading": "4. Kinex Media",
+      "cells": [
+        "4",
+        "Kinex Media",
+        "2008",
+        "Toronto and Mississauga, Canada; New York and Fremont, USA",
+        "$5,000+",
+        "E-commerce, Shopify, Magento, custom websites, SEO",
+        "9.0/10"
+      ],
+      "facts": [
+        "📍 Toronto and Mississauga, Canada; New York and Fremont, USA<br><strong>Established:</strong> 2008<br><strong>Minimum budget:</strong> US$5,000+",
+        "<strong>Ratings:</strong> Clutch: 5.0/5; Google: 5.0/5, for the Toronto listing displayed on DesignRush; DesignRush: no separate rating displayed.",
+        "<strong>Clients:</strong> Staples Business Advantage, Zebra Pen Canada, Becker Shoes, Bad Boy Superstore, ElecDirect."
+      ]
+    },
+    {
+      "id": "agency-takt",
+      "name": "Takt",
+      "heading": "5. Takt",
+      "cells": [
+        "5",
+        "Takt",
+        "2012",
+        "Vancouver and Toronto, Canada; New York, USA",
+        "$25,000+",
+        "Brand strategy, identity, websites, integrated campaigns",
+        "8.7/10"
+      ],
+      "facts": [
+        "📍  Vancouver and Toronto, Canada; New York, USA<br><strong>Established:</strong> 2012<br><strong>Minimum budget:</strong> US$25,000+",
+        "<strong>Ratings:</strong> Clutch: 5.0/5; Google: 4.7/5; DesignRush: no separate rating displayed.",
+        "<strong>Clients:</strong> Amazon, New York University, NHLPA, CBC, BMO."
+      ]
+    },
+    {
+      "id": "agency-twirling-umbrellas",
+      "name": "Twirling Umbrellas",
+      "heading": "6. Twirling Umbrellas",
+      "cells": [
+        "6",
+        "Twirling Umbrellas",
+        "2012*",
+        "Kelowna, Canada",
+        "$25,000+",
+        "Enterprise WordPress, association and nonprofit websites",
+        "8.7/10"
+      ],
+      "facts": [
+        "📍 Kelowna, Canada<br><strong>Established:</strong> 2012; incorporated in 2014<br><strong>Minimum budget:</strong> US$25,000+",
+        "<strong>Ratings:</strong> Clutch: 5.0/5; Google: not verified; DesignRush: not verified.",
+        "<strong>Clients:</strong> Canadian Association of Science Centres, Cycling Canada, Alberta Equestrian Federation, Persona Informatics, Joy of the Mountains."
+      ]
+    },
+    {
+      "id": "agency-eggs-media",
+      "name": "Eggs Media",
+      "heading": "7. Eggs Media",
+      "cells": [
+        "7",
+        "Eggs Media",
+        "2014",
+        "Toronto, Canada",
+        "$5,000+",
+        "WordPress, custom development, web applications, maintenance",
+        "8.6/10"
+      ],
+      "facts": [
+        "📍 Toronto, Canada<br><strong>Established:</strong> 2014, according to the agency<br><strong>Minimum budget:</strong> US$5,000+",
+        "<strong>Ratings:</strong> Clutch: 4.9/5; Google: 5.0/5, displayed on the agency’s website; DesignRush: not verified.",
+        "<strong>Clients:</strong> Government of Ontario, University of Toronto, AECOM, Toronto Congress Centre, Algorand."
+      ]
+    },
+    {
+      "id": "agency-pragmatica",
+      "name": "Pragmatica",
+      "heading": "8. Pragmatica",
+      "cells": [
+        "8",
+        "Pragmatica",
+        "2004",
+        "Vancouver area/White Rock and Toronto, Canada",
+        "$10,000+",
+        "Accessible websites, UX/UI, nonprofit and healthcare projects",
+        "8.5/10"
+      ],
+      "facts": [
+        "📍 Vancouver area/White Rock and Toronto, Canada<br><strong>Established:</strong> 2004<br><strong>Minimum budget:</strong> US$10,000+",
+        "<strong>Ratings:</strong> Clutch: 5.0/5; Google: not verified; DesignRush: no published rating displayed.",
+        "<strong>Clients:</strong> Heart and Stroke Foundation of Canada, Tourism Montréal, Carleton University’s Energy &amp; Emissions Research Lab, Pediatric Cardiac Critical Care Consortium, Canadian Hydrographic Association."
+      ]
+    },
+    {
+      "id": "agency-bragdeal-inc",
+      "name": "BragDeal Inc.",
+      "heading": "9. BragDeal Inc.",
+      "cells": [
+        "9",
+        "BragDeal Inc.",
+        "2013",
+        "Vancouver and Kelowna, Canada",
+        "$1,000+",
+        "Custom websites, branding, SEO, lead generation",
+        "8.4/10"
+      ],
+      "facts": [
+        "📍 Vancouver and Kelowna, Canada<br><strong>Established:</strong> 2013<br><strong>Minimum budget:</strong> US$1,000+",
+        "<strong>Ratings:</strong> Clutch: 5.0/5; Google: 4.9/5; DesignRush: 4.8/5.",
+        "<strong>Clients:</strong> BC Genealogical Society, HealthVue Medical, Rodney’s Oyster House, BlockOne Capital, Premier Health Group."
+      ]
+    },
+    {
+      "id": "agency-the-story-web-design-marketing",
+      "name": "The Story Web Design & Marketing",
+      "heading": "10. The Story Web Design & Marketing",
+      "cells": [
+        "10",
+        "The Story Web Design & Marketing",
+        "2012",
+        "Toronto and Ottawa, Canada; Hoffman Estates, USA",
+        "$5,000+",
+        "Website design, positioning, copywriting, multi-location websites",
+        "8.3/10"
+      ],
+      "facts": [
+        "📍 Toronto and Ottawa, Canada; Hoffman Estates, USA<br><strong>Established:</strong> 2012<br><strong>Minimum budget:</strong> US$5,000+",
+        "<strong>Ratings:</strong> Clutch: 5.0/5; Google: not verified; DesignRush: 4.6/5, under “The Story Webs.”",
+        "<strong>Clients:</strong> Spirit of Math, Clearview Nursery, ELITE IVF, BVD Group, Paws Playgrounds."
+      ]
+    }
+  ],
+  "quickMatch": {
+    "headers": [
+      "<strong>Your situation</strong>",
+      "<strong>Best-fit agency</strong>",
+      "<strong>Why it fits</strong>"
+    ],
+    "rows": [
+      [
+        "<strong>Best overall pick for custom web design</strong>",
+        "<strong>Brand Vision</strong>",
+        "Our highest combined editorial assessment for value, client satisfaction, portfolio quality, and integrated brand-to-website capability."
+      ],
+      [
+        "<strong>Your brand identity and website both need rebuilding</strong>",
+        "<strong>Brand Vision or Envy Design Co.</strong>",
+        "Brand Vision combines positioning, identity, websites, and SEO; Envy connects websites with broader creative collateral."
+      ],
+      [
+        "<strong>Your store needs a substantial catalogue and business-system integrations</strong>",
+        "<strong>Kinex Media</strong>",
+        "Its Shopify and Magento focus directly matches commerce-led requirements."
+      ],
+      [
+        "<strong>Your association needs a more manageable WordPress website</strong>",
+        "<strong>Twirling Umbrellas</strong>",
+        "Its enterprise WordPress specialization includes association projects, staff training, and continuing support."
+      ]
+    ]
+  }
+}
