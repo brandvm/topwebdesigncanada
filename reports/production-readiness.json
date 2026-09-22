@@ -1,0 +1,326 @@
+{
+  "site": "topwebdesigncanada",
+  "domain": "topwebdesigncanada.ca",
+  "build": "94d67b61fb8b636c7c795e70e4fc4843d9c5fb4b",
+  "assetsOnly": true,
+  "reviewFeatures": false,
+  "crawlable": true,
+  "pages": [
+    {
+      "route": "/",
+      "title": "Top 10 Web Design Agencies in Canada (2026)",
+      "description": "Compare 10 web design agencies in Canada by capabilities, project budgets, portfolios and client feedback. Find a team for your next business website.",
+      "canonical": "https://topwebdesigncanada.ca/",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Top Web Design Agencies in Canada2026 guide"
+        },
+        {
+          "level": 2,
+          "text": "In this guide"
+        },
+        {
+          "level": 2,
+          "text": "Overview Table: Web Design Companies in Canada"
+        },
+        {
+          "level": 2,
+          "text": "Full Profiles: Web Design Agencies in Canada"
+        },
+        {
+          "level": 3,
+          "text": "Brand Vision"
+        },
+        {
+          "level": 3,
+          "text": "Envy Design Co."
+        },
+        {
+          "level": 3,
+          "text": "ThrillX"
+        },
+        {
+          "level": 3,
+          "text": "Kinex Media"
+        },
+        {
+          "level": 3,
+          "text": "Takt"
+        },
+        {
+          "level": 3,
+          "text": "Twirling Umbrellas"
+        },
+        {
+          "level": 3,
+          "text": "Eggs Media"
+        },
+        {
+          "level": 3,
+          "text": "Pragmatica"
+        },
+        {
+          "level": 3,
+          "text": "BragDeal Inc."
+        },
+        {
+          "level": 3,
+          "text": "The Story Web Design & Marketing"
+        },
+        {
+          "level": 2,
+          "text": "Quick Match: Best Web Design Agencies by Project Type"
+        },
+        {
+          "level": 2,
+          "text": "Methodology: How We Assess Web Design Agencies"
+        },
+        {
+          "level": 3,
+          "text": "1. Value & Return on Investment"
+        },
+        {
+          "level": 3,
+          "text": "2. Proven Client Satisfaction"
+        },
+        {
+          "level": 3,
+          "text": "3. Experience and Work Quality"
+        },
+        {
+          "level": 3,
+          "text": "4. Team Depth & In-House Capability"
+        },
+        {
+          "level": 3,
+          "text": "5. Process & Technical Standards"
+        },
+        {
+          "level": 3,
+          "text": "6. Client Outcomes & Longevity"
+        },
+        {
+          "level": 2,
+          "text": "Frequently Asked Questions"
+        },
+        {
+          "level": 3,
+          "text": "1. Which Canadian web design agency is best for a combined brand and website project?"
+        },
+        {
+          "level": 3,
+          "text": "2. How much should I budget when comparing web design companies in Canada?"
+        },
+        {
+          "level": 3,
+          "text": "3. Why might a web design agency quote above its listed minimum budget?"
+        },
+        {
+          "level": 3,
+          "text": "4. Do I need to hire a web design agency in my own city?"
+        },
+        {
+          "level": 3,
+          "text": "5. How should I choose between a WordPress, Webflow, or Shopify agency?"
+        },
+        {
+          "level": 3,
+          "text": "6. How long should a website redesign take?"
+        },
+        {
+          "level": 3,
+          "text": "7. What should be included in a custom web design proposal?"
+        },
+        {
+          "level": 3,
+          "text": "8. How can I protect existing SEO during a redesign?"
+        },
+        {
+          "level": 3,
+          "text": "9. How should I compare web design agencies on Clutch, Google, and DesignRush?"
+        },
+        {
+          "level": 3,
+          "text": "10. What ownership and support arrangements should I agree before hiring?"
+        },
+        {
+          "level": 2,
+          "text": "Explore another specialism."
+        },
+        {
+          "level": 3,
+          "text": "Top 10 Web Design Agencies in Toronto (2026)"
+        }
+      ]
+    },
+    {
+      "route": "/blog/",
+      "title": "Guides & comparisons | Top Web Design Canada",
+      "description": "Browse Top Web Design Canada's detailed agency comparisons, practical hiring advice, and project guides.",
+      "canonical": "https://topwebdesigncanada.ca/blog/",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Find the right agency."
+        },
+        {
+          "level": 2,
+          "text": "Top Web Design Agencies in Canada (2026)"
+        },
+        {
+          "level": 2,
+          "text": "Top 10 Web Design Agencies in Toronto (2026)"
+        }
+      ]
+    },
+    {
+      "route": "/toronto/",
+      "title": "Top 10 Web Design Agencies in Toronto (2026)",
+      "description": "Explore 10 Toronto web design agencies. Compare project budgets, capabilities, portfolios and client feedback to shortlist a team for your next website.",
+      "canonical": "https://topwebdesigncanada.ca/toronto/",
+      "headings": [
+        {
+          "level": 1,
+          "text": "Top 10 Web Design Agencies in Toronto2026 guide"
+        },
+        {
+          "level": 2,
+          "text": "In this guide"
+        },
+        {
+          "level": 2,
+          "text": "Overview Table"
+        },
+        {
+          "level": 2,
+          "text": "Full Agency Profiles"
+        },
+        {
+          "level": 3,
+          "text": "Brand Vision"
+        },
+        {
+          "level": 3,
+          "text": "Mojo Media"
+        },
+        {
+          "level": 3,
+          "text": "Envy Design Co."
+        },
+        {
+          "level": 3,
+          "text": "ThrillX"
+        },
+        {
+          "level": 3,
+          "text": "Kinex Media"
+        },
+        {
+          "level": 3,
+          "text": "Takt"
+        },
+        {
+          "level": 3,
+          "text": "Eggs Media"
+        },
+        {
+          "level": 3,
+          "text": "HPPY"
+        },
+        {
+          "level": 3,
+          "text": "Thinkbound Inc."
+        },
+        {
+          "level": 3,
+          "text": "Blue Flamingo Solutions"
+        },
+        {
+          "level": 2,
+          "text": "Quick Match"
+        },
+        {
+          "level": 2,
+          "text": "Methodology: How We Assess the Best Web Design Agencies in Toronto"
+        },
+        {
+          "level": 3,
+          "text": "1. Value & Return on Investment"
+        },
+        {
+          "level": 3,
+          "text": "2. Proven Client Satisfaction"
+        },
+        {
+          "level": 3,
+          "text": "3. Experience and Work Quality"
+        },
+        {
+          "level": 3,
+          "text": "4. Team Depth & In-House Capability"
+        },
+        {
+          "level": 3,
+          "text": "5. Process & Technical Standards"
+        },
+        {
+          "level": 3,
+          "text": "6. Client Outcomes & Longevity"
+        },
+        {
+          "level": 2,
+          "text": "Frequently Asked Questions"
+        },
+        {
+          "level": 3,
+          "text": "1. Which is the best web design agency in Toronto?"
+        },
+        {
+          "level": 3,
+          "text": "2. How much should I budget for a Toronto web design agency?"
+        },
+        {
+          "level": 3,
+          "text": "3. How should I compare proposals from web design companies in Toronto?"
+        },
+        {
+          "level": 3,
+          "text": "4. How do I evaluate a web design agency’s platform recommendation?"
+        },
+        {
+          "level": 3,
+          "text": "5. How long should a website redesign take?"
+        },
+        {
+          "level": 3,
+          "text": "6. Should branding and website design be handled together?"
+        },
+        {
+          "level": 3,
+          "text": "7. How can I protect SEO during a website redesign?"
+        },
+        {
+          "level": 3,
+          "text": "8. How much weight should I give web design agency review scores?"
+        },
+        {
+          "level": 3,
+          "text": "9. What should I confirm about ownership and account access?"
+        },
+        {
+          "level": 3,
+          "text": "10. What support should I arrange after launch?"
+        },
+        {
+          "level": 2,
+          "text": "Explore another specialism."
+        },
+        {
+          "level": 3,
+          "text": "Top Web Design Agencies in Canada (2026)"
+        }
+      ]
+    }
+  ]
+}

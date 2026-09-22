@@ -1,122 +1,27 @@
-[
-  {
-    "documentWidth": 320,
-    "overflow": false,
-    "path": "/",
-    "width": 320
-  },
-  {
-    "documentWidth": 320,
-    "overflow": false,
-    "path": "/blog/",
-    "width": 320
-  },
-  {
-    "documentWidth": 320,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-canada/",
-    "width": 320
-  },
-  {
-    "documentWidth": 320,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-toronto/",
-    "width": 320
-  },
-  {
-    "documentWidth": 390,
-    "overflow": false,
-    "path": "/",
-    "width": 390
-  },
-  {
-    "documentWidth": 390,
-    "overflow": false,
-    "path": "/blog/",
-    "width": 390
-  },
-  {
-    "documentWidth": 390,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-canada/",
-    "width": 390
-  },
-  {
-    "documentWidth": 390,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-toronto/",
-    "width": 390
-  },
-  {
-    "documentWidth": 768,
-    "overflow": false,
-    "path": "/",
-    "width": 768
-  },
-  {
-    "documentWidth": 768,
-    "overflow": false,
-    "path": "/blog/",
-    "width": 768
-  },
-  {
-    "documentWidth": 768,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-canada/",
-    "width": 768
-  },
-  {
-    "documentWidth": 768,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-toronto/",
-    "width": 768
-  },
-  {
-    "documentWidth": 1024,
-    "overflow": false,
-    "path": "/",
-    "width": 1024
-  },
-  {
-    "documentWidth": 1024,
-    "overflow": false,
-    "path": "/blog/",
-    "width": 1024
-  },
-  {
-    "documentWidth": 1024,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-canada/",
-    "width": 1024
-  },
-  {
-    "documentWidth": 1024,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-toronto/",
-    "width": 1024
-  },
-  {
-    "documentWidth": 1440,
-    "overflow": false,
-    "path": "/",
-    "width": 1440
-  },
-  {
-    "documentWidth": 1440,
-    "overflow": false,
-    "path": "/blog/",
-    "width": 1440
-  },
-  {
-    "documentWidth": 1440,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-canada/",
-    "width": 1440
-  },
-  {
-    "documentWidth": 1440,
-    "overflow": false,
-    "path": "/blog/top-web-design-agencies-toronto/",
-    "width": 1440
-  }
-]
+{
+  "site": "topwebdesigncanada",
+  "build": "94d67b61fb8b636c7c795e70e4fc4843d9c5fb4b",
+  "method": "Rendered HTML in browser frames at 375, 768 and 1440 CSS pixels; desktop and mobile screenshots inspected",
+  "widths": [
+    {
+      "viewport": 375,
+      "documentScrollWidth": 375,
+      "h1Count": 1,
+      "reviewControls": 0
+    },
+    {
+      "viewport": 768,
+      "documentScrollWidth": 768,
+      "h1Count": 1,
+      "reviewControls": 0
+    },
+    {
+      "viewport": 1440,
+      "documentScrollWidth": 1440,
+      "h1Count": 1,
+      "reviewControls": 0
+    }
+  ],
+  "tableOverflow": "Contained in labeled horizontal scrolling region on mobile",
+  "result": "pass"
+}
