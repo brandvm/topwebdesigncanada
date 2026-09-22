@@ -4,4 +4,4 @@ interface Props{id:string;name:string;}
 const {id,name}=Astro.props;const mark=(marks as Record<string,string>)[id];
 const initials=name.replace(/[^a-zA-Z0-9 ]/g,'').split(/\s+/).slice(0,2).map(s=>s[0]).join('');
 ---
-<span class="company-mark" aria-hidden="true">{mark?<img src={withBase('/images/agencies/'+mark)} width="100" height="45" alt="" loading="lazy" decoding="async"/>:<span class="initials">{initials}</span>}</span>
+<span class="company-mark">{mark?<img src={withBase('/images/agencies/'+mark)} width="100" height="45" alt={`${name} logo`} loading="lazy" decoding="async"/>:<span class="initials" aria-hidden="true">{initials}</span>}</span>

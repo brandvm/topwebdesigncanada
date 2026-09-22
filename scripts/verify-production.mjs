@@ -24,7 +24,7 @@ for(const route of config.routes){
 const files=[];
 function walk(dir){for(const name of readdirSync(dir)){const path=join(dir,name);statSync(path).isDirectory()?walk(path):files.push(path)}}
 walk('dist');
-assert(!files.some(path=>/\.(?:[cm]?js|map)$/.test(path)),'Public assets must not include browser scripts or source maps');
+assert(!files.some(path=>/\.(?:[cm]?js|map)$/.test(path)&&path!=='dist/_analytics/consent.js'),'Only the analytics consent controller may ship as executable code');
 for(const path of ['dist/_review','dist/api','dist/design','dist/__login','dist/__logout'])assert(!existsSync(path),`${path} is private to staging`);
 const titles=new Set(),descriptions=new Set(),pages=[];
 for(const route of info.pages){
@@ -64,7 +64,11 @@ for(const file of files.filter(file=>file.endsWith('.html'))){
     if(/robots|googlebot|bingbot/.test(name))assert(!/\b(noindex|nofollow|none)\b/i.test(meta.getAttribute('content')||''),`${file}: indexable content`);
   }
   assert(!/data-review-|\/api\/review|\/_review\/|id="site-mode"|action="\/__login"|action="\/__logout"/.test(html),`${file}: no review or login markup`);
-  assert.equal(doc.querySelectorAll('script:not([type="application/ld+json"])').length,0,`${file}: no executable browser JavaScript`);
+  for(const script of doc.querySelectorAll('script:not([type="application/ld+json"])')){assert.equal(script.getAttribute('src'),'/_analytics/consent.js',`${file}: only consent controller`);assert(script.hasAttribute('defer'));}
+  const analytics=doc.querySelector('[data-analytics-consent]');
+  if(analytics){assert.equal(analytics.getAttribute('data-analytics-host'),site.domain);assert(/^G-[A-Z0-9]+$/.test(analytics.getAttribute('data-measurement-id')));assert(analytics.hasAttribute('hidden'));}
+  for(const img of doc.querySelectorAll('.company-mark img'))assert(img.getAttribute('alt')?.endsWith(' logo'));
+  for(const script of doc.querySelectorAll('script[type="application/ld+json"]'))for(const schema of JSON.parse(script.textContent)['@graph'])if(schema['@type']==='ItemList')for(const item of schema.itemListElement){assert.equal(item.item['@type'],'Organization');assert(item.item.url.startsWith('https://'));assert.equal(item.item.name,item.name);}
 }
 const robots=readFileSync('dist/robots.txt','utf8');
 assert(!/^\s*Disallow:\s*\S/m.test(robots),'Production robots.txt must permit crawling');

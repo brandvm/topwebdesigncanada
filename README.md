@@ -61,3 +61,7 @@ The full `top-web-design-agencies-canada` article is the homepage. Additional ar
 All interface typography uses self-hosted modern sans-serif Google Fonts. Company marks are small locally hosted identity images; `docs/agency-marks.json` records their source. Where an official asset is unavailable, a neutral initials tile identifies the agency. These are company navigation tiles, not client endorsements or verification badges.
 
 Subpage review drafts retain their previous browser storage keys when public paths change. Existing comment records stay in place and are accessible at the new URLs.
+
+## Analytics
+
+Production uses consent-based Google Analytics 4 under Brand Vision Insights. See [analytics setup and AI-referral reporting](docs/analytics.md). Agency entity sources are recorded in [agency identities](docs/agency-entities.md).

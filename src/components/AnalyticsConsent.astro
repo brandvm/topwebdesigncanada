@@ -1,0 +1,16 @@
+---
+import site from '../data/site.json';
+import analytics from '../data/analytics.json';
+import {withBase} from '../lib/content';
+---
+<section class="analytics-consent" data-analytics-consent data-measurement-id={analytics.measurementId} data-analytics-host={site.domain} role="region" aria-label="Analytics preferences" hidden>
+  <strong>Help us understand what’s useful.</strong>
+  <p>With your permission, Google Analytics measures page visits, referral sources and link clicks. You can decline or change your choice in the footer.</p>
+  <details><summary>How analytics works</summary><p>Google Analytics uses cookies to distinguish visits and reports activity to Brand Vision Insights. Advertising personalization is disabled. This browser remembers your choice for 180 days. <a href="https://policies.google.com/privacy">Google’s privacy policy</a>.</p></details>
+  <p data-consent-status role="status"></p>
+  <div class="consent-actions"><button type="button" data-consent-reject>Decline analytics</button><button type="button" data-consent-accept>Accept analytics</button><button type="button" data-consent-close aria-label="Close analytics preferences">Close</button></div>
+</section>
+<script is:inline defer src={withBase('/_analytics/consent.js')}></script>
+<style>
+.analytics-consent{position:fixed;bottom:16px;left:16px;z-index:1000;width:min(520px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);box-shadow:0 8px 32px #0002;font-size:14px;line-height:1.5}.analytics-consent[hidden]{display:none}.analytics-consent strong{font-size:17px}.analytics-consent p{margin-top:8px}.analytics-consent summary{cursor:pointer;margin-top:10px;text-decoration:underline;text-underline-offset:3px}.consent-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.consent-actions button{min-height:44px;border:1px solid var(--ink);border-radius:5px;padding:8px 12px;background:var(--paper);color:var(--ink);cursor:pointer}.consent-actions button:hover{background:var(--wash)}
+</style>
