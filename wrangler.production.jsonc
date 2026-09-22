@@ -8,7 +8,15 @@
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page",
-    "html_handling": "auto-trailing-slash"
+    "html_handling": "auto-trailing-slash",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/*",
+      "!/_astro/*",
+      "!/images/*",
+      "!/_analytics/*",
+      "!/brand/*"
+    ]
   },
   "routes": [
     {
@@ -23,5 +31,6 @@
       "zone_id": "c742539492c8c6e435428c360f5a78fd",
       "previews_enabled": false
     }
-  ]
+  ],
+  "main": "server/production.mjs"
 }

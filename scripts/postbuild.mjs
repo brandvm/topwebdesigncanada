@@ -43,6 +43,8 @@ if(staging){
 }
 
 if(!staging){
+ const {build}=await import('esbuild');
+ await build({entryPoints:['src/scripts/analytics.js'],outfile:'dist/_analytics/consent.js',bundle:true,minify:true,target:'es2022'});
  const {parseHTML}=await import('linkedom');
  const guideLinks=[];
  for(const route of emitted){
@@ -63,6 +65,6 @@ if(!staging){
   await writeFile(file,document.toString());
  }
  const htmlCacheHeaders=[...emitted,'/404.html',...Object.keys(aliases)].map(route=>`${route}\n  Cache-Control: public, max-age=0, must-revalidate\n`).join('');
- await writeFile('dist/_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n/images/*\n  Cache-Control: public, max-age=86400\n"+htmlCacheHeaders);
+ await writeFile('dist/_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n/images/*\n  Cache-Control: public, max-age=86400\n"+htmlCacheHeaders);
  await writeFile('dist/.assetsignore','build-info.json\n.nojekyll\n');
 }

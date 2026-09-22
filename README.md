@@ -44,7 +44,7 @@ For local authenticated review, put the two Worker secrets in ignored `.dev.vars
 
 `npm run verify` runs Astro checks, content tests, a production build, links/anchors, heading hierarchy, schema, source-link and indexing checks, plus compressed asset budgets. `npm run audit` audits production HTML on mobile and desktop, three runs per page. Targets: performance 100 (median ≥95 required), automated accessibility/best practices/SEO 100. Reports distinguish measurements from manual checks. Real-user Core Web Vitals and public PageSpeed checks require an approved launch and traffic.
 
-Production output has zero review code or controls, no API routes, and no database bindings. Production uses the separate assets-only `wrangler.production.jsonc`. Run `npm run deploy:production` after reviewing the production audit; the manual **Publish production** workflow also validates and audits before deployment. See `docs/production.md` for domain connection and Search Console setup.
+Production output has zero review code or controls, no API routes, and no database bindings. Production uses the separate static-content `wrangler.production.jsonc`. Run `npm run deploy:production` after reviewing the production audit; the manual **Publish production** workflow also validates and audits before deployment. See `docs/production.md` for domain connection and Search Console setup.
 
 ## Rollback
 
@@ -61,3 +61,7 @@ The full `top-web-design-agencies-canada` article is the homepage. Additional ar
 All interface typography uses self-hosted modern sans-serif Google Fonts. Company marks are small locally hosted identity images; `docs/agency-marks.json` records their source. Where an official asset is unavailable, a neutral initials tile identifies the agency. These are company navigation tiles, not client endorsements or verification badges.
 
 Subpage review drafts retain their previous browser storage keys when public paths change. Existing comment records stay in place and are accessible at the new URLs.
+
+## Analytics
+
+Production uses consent-based Google Analytics 4 under Brand Vision Insights. See [analytics setup and AI-referral reporting](docs/analytics.md). Agency entity sources are recorded in [agency identities](docs/agency-entities.md).
