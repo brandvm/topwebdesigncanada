@@ -68,6 +68,7 @@ const robots=readFileSync('dist/robots.txt','utf8');
 assert(!/^\s*Disallow:\s*\S/m.test(robots),'Production robots.txt must permit crawling');
 assert(robots.includes(`Sitemap: https://${site.domain}/sitemap.xml`));
 assert(!/noindex|nofollow|noarchive|no-store/i.test(readFileSync('dist/_headers','utf8')),'Production response headers must allow indexing and public caching');
+for(const route of [...info.pages,'/404.html'])assert(readFileSync('dist/_headers','utf8').includes(`${route}\n  Cache-Control: public, max-age=0, must-revalidate, no-transform`),'HTML responses prevent CDN script injection that conflicts with CSP');
 assert(readFileSync('dist/.assetsignore','utf8').includes('build-info.json'),'Internal build metadata is excluded from upload');
 assert(!readFileSync('dist/sitemap.xml','utf8').includes('workers.dev'),'The sitemap uses the canonical domain');
 writeFileSync('reports/production-readiness.json',JSON.stringify({site:site.repo,domain:site.domain,build:info.commit,assetsOnly:true,reviewFeatures:false,crawlable:true,pages},null,2)+'\n');
