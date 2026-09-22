@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "topwebdesigncanada",
+  "account_id": "ce645e22953cc9c203c64fe0f2bada66",
+  "compatibility_date": "2026-09-22",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "routes": [
+    {
+      "pattern": "www.topwebdesigncanada.ca",
+      "custom_domain": true,
+      "zone_id": "c742539492c8c6e435428c360f5a78fd",
+      "previews_enabled": false
+    },
+    {
+      "pattern": "topwebdesigncanada.ca",
+      "custom_domain": true,
+      "zone_id": "c742539492c8c6e435428c360f5a78fd",
+      "previews_enabled": false
+    }
+  ]
+}

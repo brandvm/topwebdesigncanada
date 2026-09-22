@@ -1,6 +1,6 @@
 # Top Web Design Canada
 
-An Astro agency directory for `topwebdesigncanada.ca`. This public repository contains the editorial source; Cloudflare staging is password-protected and noindex. Production domains remain untouched. There is no GitHub Pages deployment.
+An Astro agency directory for `topwebdesigncanada.ca`. This public repository contains the editorial source; Cloudflare staging is password-protected and noindex. The canonical production host is `www.topwebdesigncanada.ca`; the apex redirects permanently to www. There is no GitHub Pages deployment.
 
 ## Edit locally
 
@@ -44,7 +44,7 @@ For local authenticated review, put the two Worker secrets in ignored `.dev.vars
 
 `npm run verify` runs Astro checks, content tests, a production build, links/anchors, heading hierarchy, schema, source-link and indexing checks, plus compressed asset budgets. `npm run audit` audits production HTML on mobile and desktop, three runs per page. Targets: performance 100 (median ≥95 required), automated accessibility/best practices/SEO 100. Reports distinguish measurements from manual checks. Real-user Core Web Vitals and public PageSpeed checks require an approved launch and traffic.
 
-Production output has zero review code or controls, no API routes, and no database bindings. Production deployment is deliberately not configured. To launch, obtain approval for an explicit revision and connect its domain in a separate change.
+Production output has zero review code or controls, no API routes, and no database bindings. Production uses the separate assets-only `wrangler.production.jsonc`. Run `npm run deploy:production` after reviewing the production audit; the manual **Publish production** workflow also validates and audits before deployment. See `docs/production.md` for domain connection and Search Console setup.
 
 ## Rollback
 

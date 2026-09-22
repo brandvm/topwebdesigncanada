@@ -1,6 +1,6 @@
 {
   "site": "topwebdesigncanada",
-  "build": "local",
+  "build": "94d67b61fb8b636c7c795e70e4fc4843d9c5fb4b",
   "tool": "Lighthouse",
   "runsPerPage": 3,
   "results": [
@@ -8,7 +8,7 @@
       "route": "/",
       "mode": "mobile",
       "median": {
-        "performance": 99,
+        "performance": 100,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
@@ -16,13 +16,13 @@
       "runs": [
         {
           "scores": {
-            "performance": 99,
+            "performance": 100,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
           "metrics": {
-            "lcp": 1877.42055,
+            "lcp": 1805.4663,
             "cls": 0,
             "tbt": 0
           },
@@ -30,13 +30,13 @@
         },
         {
           "scores": {
-            "performance": 99,
+            "performance": 100,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
           "metrics": {
-            "lcp": 1802.36445,
+            "lcp": 1727.5622,
             "cls": 0,
             "tbt": 0
           },
@@ -44,13 +44,13 @@
         },
         {
           "scores": {
-            "performance": 99,
+            "performance": 100,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
           "metrics": {
-            "lcp": 1877.0180999999998,
+            "lcp": 1802.1334000000002,
             "cls": 0,
             "tbt": 0
           },
@@ -76,7 +76,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 442.7507,
+            "lcp": 441.56399999999996,
             "cls": 0,
             "tbt": 0
           },
@@ -90,7 +90,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 481.8849,
+            "lcp": 441.7867,
             "cls": 0,
             "tbt": 0
           },
@@ -104,7 +104,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 443.06858101685157,
+            "lcp": 441.5675,
             "cls": 0,
             "tbt": 0
           },
@@ -130,21 +130,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 1350.8682,
-            "cls": 0.007421194292911275,
-            "tbt": 0
-          },
-          "failures": []
-        },
-        {
-          "scores": {
-            "performance": 100,
-            "accessibility": 100,
-            "best-practices": 100,
-            "seo": 100
-          },
-          "metrics": {
-            "lcp": 1351.05855,
+            "lcp": 1351.4832,
             "cls": 0,
             "tbt": 0
           },
@@ -158,8 +144,22 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 1201.29045,
-            "cls": 0.007421194292911275,
+            "lcp": 1350.9238,
+            "cls": 0,
+            "tbt": 0
+          },
+          "failures": []
+        },
+        {
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100
+          },
+          "metrics": {
+            "lcp": 1351.0686,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []
@@ -184,7 +184,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 321.068,
+            "lcp": 320.6181,
             "cls": 0,
             "tbt": 0
           },
@@ -198,7 +198,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 321.0668,
+            "lcp": 320.773,
             "cls": 0,
             "tbt": 0
           },
@@ -212,8 +212,8 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 320.87,
-            "cls": 0.001331991105565771,
+            "lcp": 320.9712,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []
@@ -221,10 +221,10 @@
       ]
     },
     {
-      "route": "/blog/top-web-design-agencies-toronto/",
+      "route": "/toronto/",
       "mode": "mobile",
       "median": {
-        "performance": 99,
+        "performance": 100,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
@@ -232,13 +232,13 @@
       "runs": [
         {
           "scores": {
-            "performance": 99,
+            "performance": 100,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
           "metrics": {
-            "lcp": 1727.71035,
+            "lcp": 1727.7964878096748,
             "cls": 0,
             "tbt": 0
           },
@@ -246,13 +246,13 @@
         },
         {
           "scores": {
-            "performance": 99,
+            "performance": 100,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
           "metrics": {
-            "lcp": 1801.9026,
+            "lcp": 1801.7226,
             "cls": 0,
             "tbt": 0
           },
@@ -260,13 +260,13 @@
         },
         {
           "scores": {
-            "performance": 99,
+            "performance": 100,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
           "metrics": {
-            "lcp": 1877.57895,
+            "lcp": 1801.7635,
             "cls": 0,
             "tbt": 0
           },
@@ -275,7 +275,7 @@
       ]
     },
     {
-      "route": "/blog/top-web-design-agencies-toronto/",
+      "route": "/toronto/",
       "mode": "desktop",
       "median": {
         "performance": 100,
@@ -292,7 +292,7 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 442.15085,
+            "lcp": 442.63817964887124,
             "cls": 0,
             "tbt": 0
           },
@@ -306,8 +306,8 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 485.85159999999996,
-            "cls": 0.000001896360505501561,
+            "lcp": 441.1871,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []
@@ -320,8 +320,8 @@
             "seo": 100
           },
           "metrics": {
-            "lcp": 482.09505,
-            "cls": 0.000001896360505501561,
+            "lcp": 441.76030000000003,
+            "cls": 0,
             "tbt": 0
           },
           "failures": []

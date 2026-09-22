@@ -1,32 +1,32 @@
 {
-  "environment": "cloudflare-staging",
+  "environment": "production",
   "pages": [
     {
       "page": "/404.html",
-      "cssGzipBytes": 4232,
+      "cssGzipBytes": 3295,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 15463,
+      "javascriptGzipBytes": 0,
       "profiles": 0
     },
     {
       "page": "/blog/index.html",
-      "cssGzipBytes": 4232,
+      "cssGzipBytes": 3295,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 15463,
+      "javascriptGzipBytes": 0,
       "profiles": 0
     },
     {
       "page": "/index.html",
-      "cssGzipBytes": 4232,
+      "cssGzipBytes": 3295,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 15463,
+      "javascriptGzipBytes": 0,
       "profiles": 10
     },
     {
       "page": "/toronto/index.html",
-      "cssGzipBytes": 4232,
+      "cssGzipBytes": 3295,
       "fontBytes": 61768,
-      "javascriptGzipBytes": 15463,
+      "javascriptGzipBytes": 0,
       "profiles": 10
     }
   ]

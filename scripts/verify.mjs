@@ -64,3 +64,5 @@ if(staging){
  }
  console.log('Verified '+designPages.length+' staging design pages: assets, anchors, links, review controls and noindex.');
 }else{assert(!existsSync('dist/design'),'Design research must never ship to production.');}
+
+if(!staging)await import('./verify-production.mjs');
