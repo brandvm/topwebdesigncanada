@@ -1,7 +1,7 @@
 {
   "site": "topwebdesigncanada",
-  "domain": "topwebdesigncanada.ca",
-  "build": "94d67b61fb8b636c7c795e70e4fc4843d9c5fb4b",
+  "domain": "www.topwebdesigncanada.ca",
+  "build": "f52f5858ec5b519e1addd7682db21fcbc930833e",
   "assetsOnly": true,
   "reviewFeatures": false,
   "crawlable": true,
@@ -10,7 +10,7 @@
       "route": "/",
       "title": "Top 10 Web Design Agencies in Canada (2026)",
       "description": "Compare 10 web design agencies in Canada by capabilities, project budgets, portfolios and client feedback. Find a team for your next business website.",
-      "canonical": "https://topwebdesigncanada.ca/",
+      "canonical": "https://www.topwebdesigncanada.ca/",
       "headings": [
         {
           "level": 1,
@@ -158,7 +158,7 @@
       "route": "/blog/",
       "title": "Guides & comparisons | Top Web Design Canada",
       "description": "Browse Top Web Design Canada's detailed agency comparisons, practical hiring advice, and project guides.",
-      "canonical": "https://topwebdesigncanada.ca/blog/",
+      "canonical": "https://www.topwebdesigncanada.ca/blog/",
       "headings": [
         {
           "level": 1,
@@ -178,7 +178,7 @@
       "route": "/toronto/",
       "title": "Top 10 Web Design Agencies in Toronto (2026)",
       "description": "Explore 10 Toronto web design agencies. Compare project budgets, capabilities, portfolios and client feedback to shortlist a team for your next website.",
-      "canonical": "https://topwebdesigncanada.ca/toronto/",
+      "canonical": "https://www.topwebdesigncanada.ca/toronto/",
       "headings": [
         {
           "level": 1,
