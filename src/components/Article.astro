@@ -17,7 +17,7 @@ const overview=toc.find(a=>a.id.startsWith('overview'))!;const faq=toc.find(a=>/
 const method=toc.find(a=>a.id.startsWith('methodology'))!;const profiles=toc.find(a=>/profiles/.test(a.id))!;const quick=toc.find(a=>a.id.startsWith('quick-match'))!;
 const schema=[{'@type':'BlogPosting','@id':canonical+'#article',headline:post.data.title,description:post.data.description,mainEntityOfPage:canonical,inLanguage:'en',publisher:{'@id':`${publicSite}#publisher`},...(post.data.author?{author:{'@type':'Person',name:post.data.author}}:{}),...(post.data.publishedAt?{datePublished:post.data.publishedAt.toISOString()}:{}),...(post.data.updatedAt?{dateModified:post.data.updatedAt.toISOString()}:{}),image:new URL('/social.png',publicSite).href},{'@type':'BreadcrumbList',itemListElement:isHome?[{'@type':'ListItem',position:1,name:site.name,item:canonical}]:[{'@type':'ListItem',position:1,name:site.name,item:publicSite.href},{'@type':'ListItem',position:2,name:post.data.title,item:canonical}]},{'@type':'ItemList',name:post.data.title,itemListElement:ranking.agencies.map((a,i)=>({'@type':'ListItem',position:i+1,name:a.name,url:canonical+'#'+a.id}))}];
 ---
-<Page title={post.data.title} description={post.data.description} schema={schema} pageId={href(post.data.slug)} article>
+<Page title={post.data.title} seoTitle={post.data.seoTitle} description={post.data.seoDescription} schema={schema} pageId={href(post.data.slug)} article>
 {!isHome&&<nav aria-label="Breadcrumb"><ol class="breadcrumbs"><li><a href={withBase('/')}>{site.name}</a></li><li aria-hidden="true">/</li><li aria-current="page">{post.data.topic}</li></ol></nav>}
 <article>
 <header class="directory-hero" data-review-anchor="article-header">

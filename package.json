@@ -17,7 +17,8 @@
     "audit": "node scripts/audit.mjs",
     "dev:staging": "npm run build:staging && wrangler dev",
     "deploy:staging": "npm run build:staging && wrangler deploy",
-    "test:staging": "node --test tests/staging.test.mjs"
+    "test:staging": "node --test tests/staging.test.mjs",
+    "deploy:production": "npm run verify && wrangler deploy --config wrangler.production.jsonc"
   },
   "dependencies": {
     "astro": "7.3.3",

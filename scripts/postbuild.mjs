@@ -41,3 +41,19 @@ if(staging){
  for(const [from,to] of Object.entries(aliases))reviewManifest.pages[from]=reviewManifest.pages[to];
  await writeFile('server/review-manifest.json',JSON.stringify(reviewManifest,null,2)+'\n');
 }
+
+if(!staging){
+ const {parseHTML}=await import('linkedom');
+ for(const route of [...emitted,'/404.html',...Object.keys(aliases)]){
+  const file=route.endsWith('.html')?'dist'+route:join('dist',route,'index.html');
+  const {document}=parseHTML(await readFile(file,'utf8'));
+  // HTTP 301s handle these legacy URLs; the fallback HTML must not block indexing.
+  if(Object.hasOwn(aliases,route))for(const meta of document.querySelectorAll('meta[name=robots]'))meta.remove();
+  for(const element of document.querySelectorAll('*')){
+   for(const attribute of [...element.attributes])if(attribute.name.startsWith('data-review-'))element.removeAttribute(attribute.name);
+  }
+  await writeFile(file,document.toString());
+ }
+ await writeFile('dist/_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n/images/*\n  Cache-Control: public, max-age=86400\n");
+ await writeFile('dist/.assetsignore','build-info.json\n.nojekyll\n');
+}

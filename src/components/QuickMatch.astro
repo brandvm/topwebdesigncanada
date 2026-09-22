@@ -2,4 +2,4 @@
 interface Props{data:{headers:string[];rows:string[][]}}
 const {data}=Astro.props;
 ---
-<div class="table-scroll" tabindex="0" role="region" aria-label="Quick match table" data-review-anchor="quick-match-table"><table class="quick-match"><caption>Match your project to an agency</caption><thead><tr>{data.headers.map(h=><th scope="col" set:html={h}/>)}</tr></thead><tbody>{data.rows.map(row=><tr>{row.map(cell=><td set:html={cell}/>)}</tr>)}</tbody></table></div>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Quick match table" data-review-anchor="quick-match-table"><table class="quick-match"><caption>Match your project to an agency</caption><thead><tr>{data.headers.map(h=><th scope="col" set:html={h}/>)}</tr></thead><tbody>{data.rows.map(row=><tr>{row.map((cell,i)=>i===0?<th scope="row" set:html={cell}/>:<td set:html={cell}/>)}</tr>)}</tbody></table></div>
