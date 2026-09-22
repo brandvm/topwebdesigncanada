@@ -44,7 +44,7 @@ For local authenticated review, put the two Worker secrets in ignored `.dev.vars
 
 `npm run verify` runs Astro checks, content tests, a production build, links/anchors, heading hierarchy, schema, source-link and indexing checks, plus compressed asset budgets. `npm run audit` audits production HTML on mobile and desktop, three runs per page. Targets: performance 100 (median ≥95 required), automated accessibility/best practices/SEO 100. Reports distinguish measurements from manual checks. Real-user Core Web Vitals and public PageSpeed checks require an approved launch and traffic.
 
-Production output has zero review code or controls, no API routes, and no database bindings. Production uses the separate assets-only `wrangler.production.jsonc`. Run `npm run deploy:production` after reviewing the production audit; the manual **Publish production** workflow also validates and audits before deployment. See `docs/production.md` for domain connection and Search Console setup.
+Production output has zero review code or controls, no API routes, and no database bindings. Production uses the separate static-content `wrangler.production.jsonc`. Run `npm run deploy:production` after reviewing the production audit; the manual **Publish production** workflow also validates and audits before deployment. See `docs/production.md` for domain connection and Search Console setup.
 
 ## Rollback
 

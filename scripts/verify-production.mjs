@@ -10,8 +10,9 @@ assert.equal(info.environment,'production','Only a production build may be publi
 const config = read('wrangler.production.jsonc');
 assert.equal(config.name,site.repo);
 assert.equal(config.preview_urls,false,'Production versions must not create additional preview URLs');
-assert.deepEqual(Object.keys(config).sort(),['$schema','account_id','assets','compatibility_date','name','preview_urls','routes','workers_dev'].sort(),'Production is an assets-only Worker without review code, secrets or database bindings');
-assert.deepEqual(config.assets,{directory:'./dist',not_found_handling:'404-page',html_handling:'auto-trailing-slash'});
+assert.deepEqual(Object.keys(config).sort(),['$schema','account_id','assets','compatibility_date','name','preview_urls','routes','workers_dev','main'].sort(),'Production only serves static content with CSP response headers; no review code, secrets or database bindings');
+assert.deepEqual(config.assets,{directory:'./dist',not_found_handling:'404-page',html_handling:'auto-trailing-slash',binding:'ASSETS',run_worker_first:['/*','!/_astro/*','!/images/*','!/_analytics/*','!/brand/*']});
+assert.equal(config.main,'server/production.mjs');
 assert(site.domain.startsWith('www.'),'Production canonical host uses www');
 assert.deepEqual(config.routes.map(route=>route.pattern).sort(),[site.domain,site.domain.slice(4)].sort(),'Only canonical www and its apex may route to production');
 for(const route of config.routes){
@@ -79,5 +80,5 @@ assert(!readFileSync('dist/sitemap.xml','utf8').includes('workers.dev'),'The sit
 const llms=readFileSync('dist/llms.txt','utf8');
 assert(llms.startsWith(`# ${site.name}\n\n> `),'llms.txt identifies the publication');
 for(const route of info.pages)assert(llms.includes(`](https://${site.domain}${route})`),`${route}: llms.txt links to the canonical page`);
-writeFileSync('reports/production-readiness.json',JSON.stringify({site:site.repo,domain:site.domain,build:info.commit,assetsOnly:true,reviewFeatures:false,crawlable:true,pages},null,2)+'\n');
+writeFileSync('reports/production-readiness.json',JSON.stringify({site:site.repo,domain:site.domain,build:info.commit,staticContent:true,responseHeaderWorker:true,reviewFeatures:false,crawlable:true,pages},null,2)+'\n');
 console.log(`Production release checked: ${pages.length} indexable pages; unique metadata; semantic tables and landmarks; no login, review feature or database bindings.`);

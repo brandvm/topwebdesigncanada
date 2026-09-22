@@ -17,3 +17,7 @@ In GA4, open Reports → Acquisition → Traffic acquisition and use Session sou
 `npm run verify` checks the measurement ID, canonical host, hidden consent UI, exact script allowlist and organization schema. `npm test` covers pre-consent, refusal, expiry, GPC, preview hosts, query redaction, grant-after-refusal and withdrawal. Staging retains its authentication/review system and does not render the analytics controller or consent UI. No Measurement Protocol secret is created or shipped.
 
 A new property can show no data until the tag is deployed and a visitor accepts analytics. Use Realtime after consenting to confirm incoming events; standard reports populate later.
+
+## Cloudflare security headers
+
+A minimal production Worker streams static HTML and adds a fresh cryptographic CSP nonce to each response. Cloudflare uses that nonce for its injected bot-detection script, preserving the strict script policy and existing bot protection. Static font, image, brand and analytics assets bypass this header Worker. No login, review routes, secrets or database bindings are added. See [Cloudflare JavaScript detections and CSP](https://developers.cloudflare.com/cloudflare-challenges/challenge-types/javascript-detections/).
