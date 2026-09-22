@@ -51,6 +51,8 @@ for(const route of info.pages){
   assert.equal(doc.querySelector('link[rel="canonical"]')?.getAttribute('href'),`https://${site.domain}${route}`);
   assert.equal(doc.querySelector('meta[property="og:title"]')?.getAttribute('content'),title);
   assert.equal(doc.querySelector('meta[property="og:description"]')?.getAttribute('content'),description);
+  const heading=doc.querySelector('h1');
+  if(heading?.querySelector('.title-year'))assert(/\s2026 guide$/.test(heading.textContent),`${route}: title and year retain a word separator`);
   const headings=[...doc.querySelectorAll('h1,h2,h3,h4,h5,h6')].map(h=>({level:Number(h.tagName[1]),text:h.textContent.trim()}));
   pages.push({route,title,description,canonical:`https://${site.domain}${route}`,headings});
 }
@@ -68,8 +70,10 @@ const robots=readFileSync('dist/robots.txt','utf8');
 assert(!/^\s*Disallow:\s*\S/m.test(robots),'Production robots.txt must permit crawling');
 assert(robots.includes(`Sitemap: https://${site.domain}/sitemap.xml`));
 assert(!/noindex|nofollow|noarchive|no-store/i.test(readFileSync('dist/_headers','utf8')),'Production response headers must allow indexing and public caching');
-for(const route of [...info.pages,'/404.html'])assert(readFileSync('dist/_headers','utf8').includes(`${route}\n  Cache-Control: public, max-age=0, must-revalidate, no-transform`),'HTML responses prevent CDN script injection that conflicts with CSP');
 assert(readFileSync('dist/.assetsignore','utf8').includes('build-info.json'),'Internal build metadata is excluded from upload');
 assert(!readFileSync('dist/sitemap.xml','utf8').includes('workers.dev'),'The sitemap uses the canonical domain');
+const llms=readFileSync('dist/llms.txt','utf8');
+assert(llms.startsWith(`# ${site.name}\n\n> `),'llms.txt identifies the publication');
+for(const route of info.pages)assert(llms.includes(`](https://${site.domain}${route})`),`${route}: llms.txt links to the canonical page`);
 writeFileSync('reports/production-readiness.json',JSON.stringify({site:site.repo,domain:site.domain,build:info.commit,assetsOnly:true,reviewFeatures:false,crawlable:true,pages},null,2)+'\n');
 console.log(`Production release checked: ${pages.length} indexable pages; unique metadata; semantic tables and landmarks; no login, review feature or database bindings.`);

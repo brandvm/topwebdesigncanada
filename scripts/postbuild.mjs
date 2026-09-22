@@ -44,6 +44,14 @@ if(staging){
 
 if(!staging){
  const {parseHTML}=await import('linkedom');
+ const guideLinks=[];
+ for(const route of emitted){
+  const {document}=parseHTML(await readFile(join('dist',route,'index.html'),'utf8'));
+  const title=document.querySelector('title').textContent.trim();
+  const description=document.querySelector('meta[name="description"]').getAttribute('content');
+  guideLinks.push(`- [${title.replace(/[\[\]]/g,'')}](https://${site.domain}${route}): ${description}`);
+ }
+ await writeFile('dist/llms.txt',`# ${site.name}\n\n> ${site.description}\n\nCanonical website: https://${site.domain}/\n\nThese agency comparisons include capabilities, budgets, portfolios and selection methodology. Consult each page for its qualifications and source links.\n\n## Guides\n\n${guideLinks.join('\n')}\n\n## Optional\n\n- [Sitemap](https://${site.domain}/sitemap.xml): Index of canonical public pages.\n`);
  for(const route of [...emitted,'/404.html',...Object.keys(aliases)]){
   const file=route.endsWith('.html')?'dist'+route:join('dist',route,'index.html');
   const {document}=parseHTML(await readFile(file,'utf8'));
@@ -54,7 +62,7 @@ if(!staging){
   }
   await writeFile(file,document.toString());
  }
- const htmlCacheHeaders=[...emitted,'/404.html',...Object.keys(aliases)].map(route=>`${route}\n  Cache-Control: public, max-age=0, must-revalidate, no-transform\n`).join('');
+ const htmlCacheHeaders=[...emitted,'/404.html',...Object.keys(aliases)].map(route=>`${route}\n  Cache-Control: public, max-age=0, must-revalidate\n`).join('');
  await writeFile('dist/_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'\n/_astro/*\n  Cache-Control: public, max-age=31536000, immutable\n/images/*\n  Cache-Control: public, max-age=86400\n"+htmlCacheHeaders);
  await writeFile('dist/.assetsignore','build-info.json\n.nojekyll\n');
 }

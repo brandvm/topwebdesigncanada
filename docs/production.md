@@ -28,4 +28,4 @@ Run PageSpeed Insights on the actual domain after cutover. Local Lighthouse repo
 
 Record the production Worker deployment/version before replacing it. `npx wrangler deployments list --name topwebdesigncanada` lists prior deployments; `npx wrangler rollback <version-id> --name topwebdesigncanada` restores one. Production rollback does not touch staging review databases.
 
-Production HTML sends `Cache-Control: public, max-age=0, must-revalidate, no-transform` to prevent Cloudflare from injecting an analytics beacon that conflicts with the site's same-origin script policy. Hashed asset cache lifetimes remain separate. Confirm that live HTML has no injected executable scripts when checking PageSpeed after domain activation.
+Disable optional Real User Measurements (RUM) in Cloudflare Web Analytics for the production zone. Its injected external beacon conflicts with the site's same-origin script policy and reduces Lighthouse Best Practices. Keep CDN compression enabled; do not use `no-transform` as a workaround. Confirm that live HTML has no injected executable scripts when checking PageSpeed after domain activation.
